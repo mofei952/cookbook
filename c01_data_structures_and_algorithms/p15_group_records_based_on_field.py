@@ -6,6 +6,8 @@
 # @File    : p15_group_records_based_on_field.py
 # @Software: PyCharm
 
+# 通过某个字段将记录分组
+# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p15_group_records_based_on_field.html
 
 from itertools import groupby
 from operator import itemgetter
