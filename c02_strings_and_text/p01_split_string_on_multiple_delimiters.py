@@ -9,6 +9,7 @@
 import re
 
 # 使用多个界定符分割字符串
+# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p01_split_string_on_multiple_delimiters.html
 
 # string 对象的 split() 方法只适应于非常简单的字符串分割情形， 它并不允许有多个分隔符或者是分隔符周围不确定的空格。
 # 当需要更加灵活的切割字符串的时候，最好使用re.split() 方法

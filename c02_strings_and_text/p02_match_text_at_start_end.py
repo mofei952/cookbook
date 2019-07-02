@@ -12,6 +12,7 @@ from os import listdir
 from urllib.request import urlopen
 
 # 字符串开头或结尾匹配
+# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p02_match_text_at_start_end.html
 
 # 检查字符串开头或结尾的一个简单方法是使用 str.startswith() 或者是 str.endswith() 方法
 filename = 'spam.txt'
