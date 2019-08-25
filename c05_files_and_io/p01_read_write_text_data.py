@@ -22,7 +22,17 @@ with open('p01.txt', 'wt') as f:
 # 使用at模式对文件内容进行追加
 with open('p01.txt', 'at') as f:
     f.write('333')
-    f.write('444')
+    f.write('444\n')
 
-import sys
-print(sys.getdefaultencoding())
+# 在Unix和Windows中是不一样的(分别是 \n 和 \r\n )。
+# 默认情况下，Python会以统一模式处理换行符。
+# 这种模式下，在读取文本的时候，Python可以识别所有的普通换行符并将其转换为单个 \n 字符。
+# 类似的，在输出时会将换行符 \n 转换为系统默认的换行符。
+# 如果不希望这种默认的处理方式，可以给 open() 函数传入参数 newline='' 。
+with open('p01.txt', 'rt') as f:
+    data = f.read()
+    print(repr(data))
+
+with open('p01.txt', 'rt', newline='') as f:
+    data = f.read()
+    print(repr(data))
