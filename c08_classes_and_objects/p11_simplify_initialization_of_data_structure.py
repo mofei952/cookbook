@@ -65,8 +65,10 @@ class Stock(Structure2):
 s1 = Stock('ACME', 50, 91.1)
 s2 = Stock('ACME', 50, price=91.1)
 s3 = Stock('ACME', shares=50, price=91.1)
-# s4 = Stock('ACME', shares=50)  # KeyError: 'price'
-# s5 = Stock('ACME', shares=50, price=91.1, aa=1, bb=2) # TypeError: Invalid argument(s): aa,bb
+# KeyError: 'price'
+# s4 = Stock('ACME', shares=50)
+# TypeError: Invalid argument(s): aa,bb
+# s5 = Stock('ACME', shares=50, price=91.1, aa=1, bb=2)
 
 
 # 也可以将不在 _fields 中的名称加入到属性中去
