@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2019/9/15 19:35
+# @File    : p13_implementing_data_model_or_type_system.py
+# @Software: PyCharm
+
+# 实现数据模型的类型约束
+# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p13_implementing_data_model_or_type_system.html
+
+
+# 使用描述器来自定义属性赋值函数
+
+# Base class. Uses a descriptor to set a value
+class Descriptor:
+    def __init__(self, name=None, **opts):
+        self.name = name
+        for key, value in opts.items():
+            setattr(self, key, value)
+
+    def __set__(self, instance, value):
+        instance.__dict__[self.name] = value
+
+
+# Descriptor for enforcing types
+class Typed(Descriptor):
+    expected_type = type(None)
+
+    def __set__(self, instance, value):
+        if not isinstance(value, self.expected_type):
+            raise TypeError('expected ' + str(self.expected_type))
+        super().__set__(instance, value)
+
+
+# Descriptor for enforcing values
+class Unsigned(Descriptor):
+    def __set__(self, instance, value):
+        if value < 0:
+            raise ValueError('Expected >= 0')
+        super().__set__(instance, value)
+
+
+class MaxSized(Descriptor):
+    def __init__(self, name=None, **opts):
+        if 'size' not in opts:
+            raise TypeError('missing size option')
+        super().__init__(name, **opts)
+
+    def __set__(self, instance, value):
+        if len(value) >= self.size:
+            raise ValueError('size must be < ' + str(self.size))
+        super().__set__(instance, value)
+
+
+# 实际定义的各种数据类型，继承上面的基类
+class Integer(Typed):
+    expected_type = int
+
+
+class UnsignedInteger(Integer, Unsigned):
+    pass
+
+
+class Float(Typed):
+    expected_type = float
+
+
+class UnsignedFloat(Float, Unsigned):
+    pass
+
+
+class String(Typed):
+    expected_type = str
+
+
+class SizedString(String, MaxSized):
+    pass
+
+
+# 使用自定义的数据类型
+class Stock:
+    # Specify constraints
+    name = SizedString('name', size=8)
+    shares = UnsignedInteger('shares')
+    price = UnsignedFloat('price')
+
+    def __init__(self, name, shares, price):
+        self.name = name
+        self.shares = shares
+        self.price = price
+
+
+s = Stock('book', 20, 12.0)
+# s.name = 'abcdefgh' # ValueError: size must be < 8
+# s.shares = -10 # ValueError: Expected >= 0
+# s.price = 'many' # TypeError: expected <class 'float'>
