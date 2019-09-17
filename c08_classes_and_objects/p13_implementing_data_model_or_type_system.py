@@ -125,7 +125,6 @@ s = Stock('book', 20, 12.0)
 # s.name = 'abcdefgh' # ValueError: size must be < 8
 
 
-
 # 使用元类简化上面的代码
 class checkedmeta(type):
     def __new__(cls, clsname, bases, methods):
@@ -148,3 +147,96 @@ class Stock2(metaclass=checkedmeta):
 
 s = Stock('book', 20, 12.0)
 # s.name = 'abcdefgh' # ValueError: size must be < 8
+
+
+# 装饰器可以替代混入类，执行速度会比混入类的方式快
+def Typed(excepted_type, cls=None):
+    if cls is None:
+        return lambda cls: Typed(excepted_type, cls)
+    super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if not isinstance(value, excepted_type):
+            raise TypeError('excepted ' + str(excepted_type))
+        super_set(self, instance, value)
+
+    cls.__set__ = __set__
+    return cls
+
+
+def Unsigned(cls):
+    super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if value < 0:
+            raise ValueError('Excepted >= 0')
+        super_set(self, instance, value)
+
+    cls.__set__ = __set__
+    return cls
+
+
+def MaxSized(cls):
+    super_init = cls.__init__
+
+    def __init__(self, name=None, **opts):
+        if 'size' not in opts:
+            raise TypeError('missing size option')
+        super_init(self, name, **opts)
+
+    cls.__init__ = __init__
+
+    super_set = cls.__set__
+
+    def __set__(self, instance, value):
+        if len(value) >= self.size:
+            raise ValueError('size must be < ' + str(self.size))
+        super_set(self, instance, value)
+
+    cls.__set__ = __set__
+    return cls
+
+
+@Typed(int)
+class Integer(Descriptor):
+    pass
+
+
+@Unsigned
+class UnsignedInteger(Integer):
+    pass
+
+
+@Typed(float)
+class Float(Descriptor):
+    pass
+
+
+@Unsigned
+class UnsignedFloat(Float):
+    pass
+
+
+@Typed(str)
+class String(Descriptor):
+    pass
+
+
+@MaxSized
+class SizedString(String):
+    pass
+
+
+class Stock3(metaclass=checkedmeta):
+    name = SizedString(size=8)
+    shares = UnsignedInteger()
+    price = UnsignedFloat()
+
+    def __init__(self, name, shares, price):
+        self.name = name
+        self.shares = shares
+        self.price = price
+
+
+s = Stock('book', 20, 12.0)
+# s.name = 'abcdefgh'  # ValueError: size must be < 8
