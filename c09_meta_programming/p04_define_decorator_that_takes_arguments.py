@@ -34,4 +34,5 @@ def add(x, y):
 # 装饰器处理过程和以下语句是等效的
 # add = logged(logging.DEBUG)(add)
 
+logging.basicConfig(level=logging.DEBUG)
 print(add(1, 2))
