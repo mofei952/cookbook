@@ -7,7 +7,7 @@
 # @Software: PyCharm
 
 # 解除一个装饰器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p03_unwrapping_decorator.html
+
 import time
 from functools import wraps
 
@@ -44,8 +44,8 @@ origin_foo()
 
 
 # 如果有多个装饰器，那么访问__wrapped__属性的行为是不可预知的，应该避免这样做。
-# 在python3.3中，它会略过所有的包装层
-# 3.3以上版本则只会略过最外层
+# 在python3.3中，它会略过所有的包装层，3.3以上版本则只会略过最外层。
+# 以下代码需要在以上两种版本种运行才能看出区别。
 def decorator1(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
