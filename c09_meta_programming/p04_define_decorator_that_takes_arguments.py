@@ -3,11 +3,10 @@
 
 # @Author  : mofei
 # @Time    : 2019/10/7 21:28
-# @File    : p04_define_decorator_that_takes_arguments、.py
+# @File    : p04_define_decorator_that_takes_arguments.py
 # @Software: PyCharm
 
 # 定义一个带参数的装饰器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p04_define_decorator_that_takes_arguments.html
 
 import logging
 
@@ -27,12 +26,19 @@ def logged(level, name=None, message=None):
     return decorate
 
 
-@logged(logging.DEBUG)
+@logged(logging.WARNING)
 def add(x, y):
     return x + y
+
 
 # 装饰器处理过程和以下语句是等效的
 # add = logged(logging.DEBUG)(add)
 
-logging.basicConfig(level=logging.DEBUG)
+@logged(logging.CRITICAL, 'example')
+def spam():
+    print('Spam!')
+
+
+logging.basicConfig(level=logging.WARNING)
 print(add(1, 2))
+spam()
