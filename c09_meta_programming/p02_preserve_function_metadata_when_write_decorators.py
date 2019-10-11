@@ -7,41 +7,10 @@
 # @Software: PyCharm
 
 # 创建装饰器时保留函数元信息
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p02_preserve_function_metadata_when_write_decorators.html
 
 import time
 from functools import wraps
 from inspect import signature
-
-
-# 不加@wraps 被装饰得函数会丢失有用的信息
-def timethis(func):
-    '''
-    Decorator that reports the execution time.
-    '''
-
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = func(*args, **kwargs)
-        end = time.time()
-        print(func.__name__, end - start)
-        return result
-
-    return wrapper
-
-
-@timethis
-def countdown(n):
-    '''
-    Counts down
-    '''
-    while n > 0:
-        n -= 1
-
-
-countdown(100000)
-print(countdown.__name__)
-print(countdown.__doc__)
 
 
 # 使用functools库中的@wraps装饰器来注解底层包装函数
@@ -62,7 +31,7 @@ def timethis(func):
 
 
 @timethis
-def countdown(n):
+def countdown(n: int):
     '''
     Counts down
     '''
@@ -70,9 +39,40 @@ def countdown(n):
         n -= 1
 
 
-countdown(100000)
+countdown(10000)
 print(countdown.__name__)
 print(countdown.__doc__)
+print(countdown.__annotations__)
+
+
+# 不加@wraps被装饰的函数会丢失有用的信息
+def timethis2(func):
+    '''
+    Decorator that reports the execution time.
+    '''
+
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(func.__name__, end - start)
+        return result
+
+    return wrapper
+
+
+@timethis2
+def countdown2(n):
+    '''
+    Counts down
+    '''
+    while n > 0:
+        n -= 1
+
+
+print(countdown2.__name__)
+print(countdown2.__doc__)
+print(countdown2.__annotations__)
 
 # @warps有一个重要特性 是可以通过属性__wrapped__访问被包装函数
 countdown.__wrapped__(100000)
