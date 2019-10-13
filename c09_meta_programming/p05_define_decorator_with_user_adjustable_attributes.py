@@ -7,7 +7,7 @@
 # @Software: PyCharm
 
 # 可自定义属性的装饰器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p05_define_decorator_with_user_adjustable_attributes.html
+
 import time
 from functools import wraps, partial
 import logging
@@ -57,7 +57,6 @@ def logged(level, name=None, message=None):
     return decorate
 
 
-# Example use
 @logged(logging.DEBUG)
 def add(x, y):
     return x + y
@@ -94,4 +93,47 @@ def countdown(n):
 
 
 countdown.set_message('count')
+countdown(10000)
+
+
+# 以下是另一个自定义属性的方法，但前提是它必须是最外层的装饰器才行
+def logged(level, name=None, message=None):
+    def decorate(func):
+        logname = name if name else func.__module__
+        log = logging.getLogger(logname)
+        logmsg = message if message else func.__name__
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            wrapper.log.log(wrapper.level, wrapper.logmsg)
+            return func(*args, **kwargs)
+
+        wrapper.level = level
+        wrapper.logmsg = logmsg
+        wrapper.log = log
+
+        return wrapper
+
+    return decorate
+
+
+@logged(logging.DEBUG)
+@timethis
+def countdown(n):
+    while n > 0:
+        n -= 1
+
+
+countdown.level = logging.ERROR
+countdown(10000)
+
+
+@timethis
+@logged(logging.DEBUG)
+def countdown(n):
+    while n > 0:
+        n -= 1
+
+
+countdown.level = logging.ERROR
 countdown(10000)
