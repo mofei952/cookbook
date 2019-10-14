@@ -7,7 +7,6 @@
 # @Software: PyCharm
 
 # 带可选参数的装饰器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c09/p06_define_decorator_that_takes_optional_argument.html
 
 import logging
 from functools import partial, wraps
