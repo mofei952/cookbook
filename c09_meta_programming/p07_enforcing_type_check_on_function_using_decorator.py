@@ -6,11 +6,13 @@
 # @File    : p07_enforcing_type_check_on_function_using_decorator.py
 # @Software: PyCharm
 
+# 利用装饰器强制函数上的类型检查
+
 from inspect import signature
 from functools import wraps
 
 
-# 利用装饰器强制函数上的类型检查
+# 使用装饰器技术来实现 @typeassert
 def typeassert(*ty_args, **ty_kwargs):
     def decorate(func):
         # If in optimized mode, disable type checking
