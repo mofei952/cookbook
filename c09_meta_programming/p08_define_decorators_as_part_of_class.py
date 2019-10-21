@@ -11,7 +11,7 @@
 from functools import wraps
 
 
-# 在类中定义装饰器
+# 在类中定义装饰器，可以作为实例方法或类方法
 class A:
     def decorator1(self, func):
         @wraps(func)
@@ -31,14 +31,12 @@ class A:
         return wrapper
 
 
-# 作为一个实例方法被调用
 a = A()
 @a.decorator1
 def spam():
     pass
 
 
-# 作为一个类方法被调用
 @A.decorator2
 def grok():
     pass
