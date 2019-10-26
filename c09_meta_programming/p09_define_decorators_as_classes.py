@@ -57,11 +57,10 @@ def profiled(func):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-        nonlocal ncalls
-        ncalls += 1
+        wrapper.ncalls += 1
         return func(*args, **kwargs)
 
-    wrapper.ncalls = lambda: ncalls
+    wrapper.ncalls = ncalls
     return wrapper
 
 
@@ -72,4 +71,4 @@ def add(x, y):
 
 add(2, 3)
 add(2, 3)
-print(add.ncalls())
+print(add.ncalls)
