@@ -9,6 +9,9 @@
 # 使用元类控制实例的创建
 
 # 使用元类定义一个不能直接实例化的类
+import weakref
+
+
 class NoInstance(type):
     def __call__(self, *args, **kwargs):
         raise TypeError("Can't instantiate directly")
@@ -16,7 +19,7 @@ class NoInstance(type):
 
 class Spam(metaclass=NoInstance):
     @staticmethod
-    def grok(self):
+    def grok():
         print('Spam.grok')
 
 
@@ -45,3 +48,30 @@ class Spam(metaclass=Singleton):
 a = Spam()
 b = Spam()
 print(b is a)
+
+
+# 使用元类创建缓存实例
+class Cached(type):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__cache = weakref.WeakValueDictionary()
+
+    def __call__(self, *args):
+        if args in self.__cache:
+            return self.__cache[args]
+        else:
+            obj = super().__call__(*args)
+            self.__cache[args] = obj
+            return obj
+
+
+class Spam(metaclass=Cached):
+    def __init__(self, name):
+        print('Creating Spam({!r})'.format(name))
+        self.name = name
+
+
+a = Spam('1')
+b = Spam('2')
+c = Spam('1')
+print(c is a)
