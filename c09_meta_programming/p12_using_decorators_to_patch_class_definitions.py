@@ -8,7 +8,7 @@
 
 # 使用装饰器扩充类的功能
 
-# 使用类装饰器打印日志
+# 使用类装饰器重写__getattribute__方法，用来打印日志
 def log_getattribute(cls):
     orig_getattribute = cls.__getattribute__
 
