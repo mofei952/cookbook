@@ -82,7 +82,7 @@ class NoDupOrderedDict(OrderedDict):
     def __setitem__(self, key, value):
         if key in self:
             raise ValueError('{} already defined in {}'.format(key, self.clsname))
-        super(NoDupOrderedDict, self).__setitem__(key, value)
+        super().__setitem__(key, value)
 
 
 class OrderedMeta(type):
