@@ -6,17 +6,15 @@
 # @File    : p05_implement_a_priority_queue.py
 # @Software: PyCharm
 
-# 实现一个优先级队列
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p05_implement_a_priority_queue.html
+"""实现一个优先级队列"""
+
+import heapq
 
 
 # 利用heapq实现一个优先级队列
 # 使用(-priority, index, item)的原因：
 # 1.优先级为负数的目的是使得元素按照优先级从高到低排序
 # 2.index的目的，若item本身不可比较且不使用index，在相同优先级时会比较item1>item2就会报错
-import heapq
-
-
 class PriorityQueue:
     def __init__(self):
         self._queue = []
@@ -39,7 +37,7 @@ class Item:
 
 
 # 第一个pop()操作返回优先级最高的元素
-# 如果两个有着相同优先级的元素，pop操作按照它们被插入到队列的顺序返回的。
+# 如果有两个相同优先级的元素，pop操作按照它们被插入到队列的顺序返回的。
 q = PriorityQueue()
 q.push(Item('foo'), 1)
 q.push(Item('bar'), 5)

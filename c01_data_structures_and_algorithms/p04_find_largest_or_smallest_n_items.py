@@ -6,11 +6,11 @@
 # @File    : p04_find_largest_or_smallest_n_items.py
 # @Software: PyCharm
 
-# 查找最大或最小的 N 个元素
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p04_find_largest_or_smallest_n_items.html
+"""查找最大或最小的 N 个元素"""
+
+import heapq
 
 # heapq 模块有两个函数：nlargest() 和 nsmallest()
-import heapq
 nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
 print(heapq.nlargest(3, nums))  # Prints [42, 37, 23]
 print(heapq.nsmallest(3, nums))  # Prints [-4, 1, 2]
@@ -26,6 +26,8 @@ portfolio = [
 ]
 cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
 expensive = heapq.nlargest(3, portfolio, key=lambda s: s['price'])
+print(cheap)
+print(expensive)
 
 # 先将集合数据进行堆排序后放入一个列表中,
 # 堆数据结构最重要的特征是 heap[0] 永远是最小的元素。

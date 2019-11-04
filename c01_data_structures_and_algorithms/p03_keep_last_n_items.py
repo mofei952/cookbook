@@ -6,13 +6,13 @@
 # @File    : p03_keep_last_n_items.py
 # @Software: PyCharm
 
+"""保留最后 N 个元素"""
+
 import queue
 from collections import deque
 
-# 保留最后 N 个元素
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p01_unpack_sequence_into_separate_variables.html
 
-# 1.使用collections.deque
+# 在迭代操作时使用collections.deque保留有限几个元素的历史记录
 # 下面的代码在多行上面做简单的文本匹配，并返回匹配所在行的上面N行
 def search(lines, pattern, history=5):
     previous_lines = deque(maxlen=history)
@@ -20,7 +20,9 @@ def search(lines, pattern, history=5):
         if pattern in line:
             yield line, previous_lines
         previous_lines.append(line)
-with open(r'p03_somefile.txt') as f:
+
+
+with open(r'p03.txt') as f:
     for line, prevlines in search(f, 'python', 5):
         for pline in prevlines:
             print(pline, end='')
@@ -61,5 +63,5 @@ print(q)  # deque([1, 2])
 q = queue.Queue(maxsize=2)
 q.put(1)
 q.put(2)
-print(q)
+print(q.qsize())
 # q.put(3, block=False)

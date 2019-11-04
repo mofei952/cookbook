@@ -6,11 +6,10 @@
 # @File    : p02_unpack_elements_from_iterables.py
 # @Software: PyCharm
 
-# 解压可迭代对象赋值给多个变量
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p02_unpack_elements_from_iterables.html
+"""解压可迭代对象赋值给多个变量"""
 
-# 1.星号表达式
-# 除掉第一个和最后一个分数的平均分数
+# 使用星号表达式解压可迭代对象
+# 计算除掉第一个和最后一个分数的平均分数
 grades = [1, 2, 3, 4, 5]
 first, *middle, last = grades
 print(sum(middle) / len(middle))  # 3.0
