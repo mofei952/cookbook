@@ -6,9 +6,9 @@
 # @File    : p09_find_commonalities_in_dicts.py
 # @Software: PyCharm
 
-# 查找两字典的相同点（比如相同的键、相同的值等等）
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p09_find_commonalities_in_dicts.html
+"""查找两字典的相同点（比如相同的键、相同的值等等）"""
 
+# 两个字典
 a = {
     'x': 1,
     'y': 2,
@@ -31,6 +31,7 @@ print(c)
 
 # 键视图对象支持集合操作，可以直接使用键视图对象而不用先将它们转换成一个set。
 # 字典的 items() 方法返回一个包含 (键，值) 对的元素视图对象。 这个对象同样也支持集合操作，并且可以被用来查找两个字典有哪些相同的键值对。
+
 # 字典的 values() 并不支持这集合操作因为值视图不能保证所有的值互不相同，这样会导致某些集合操作会出现问题。
 # 不过，如果硬要在值上面执行这些集合操作的话，可以先将值集合转换成 set，然后再执行集合运算就行了。
 print(set(a.values()) & set(b.values()))

@@ -6,14 +6,12 @@
 # @File    : p06_map_keys_to_multiple_values_in_dict.py
 # @Software: PyCharm
 
-# 字典中的键映射多个值
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p06_map_keys_to_multiple_values_in_dict.html
+"""字典中的键映射多个值"""
 
-
-# 使用defaultdict
-# defaultdict 会自动为将要访问的键（就算目前字典中并不存在这样的键）创建映射实体
 from collections import defaultdict
 
+# 要让字典中的一个键映射多个值，可以使用defaultdict
+# defaultdict 会自动为将要访问的键（就算目前字典中并不存在这样的键）创建映射实体
 d = defaultdict(list)
 d['a'].append(1)
 d['a'].append(2)
