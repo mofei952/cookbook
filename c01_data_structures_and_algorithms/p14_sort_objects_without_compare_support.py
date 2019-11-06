@@ -6,8 +6,9 @@
 # @File    : p14_sort_objects_without_compare_support.py
 # @Software: PyCharm
 
-# 排序不支持原生比较的对象
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p14_sort_objects_without_compare_support.html
+"""排序不支持原生比较的对象"""
+
+from operator import attrgetter
 
 
 class User:
@@ -25,12 +26,11 @@ users = [User(23, 'a', 'b'), User(3, 'b', 'c'), User(99, 'c', 'a')]
 print(sorted(users, key=lambda u: u.user_id))
 
 # 使用 operator.attrgetter()
-from operator import attrgetter
 print(sorted(users, key=attrgetter('user_id')))
 
 # operator.attrgetter() 允许多个字段进行比较
-by_name = sorted(users, key=attrgetter('last_name', 'first_name'))
-print(by_name)
+users_by_name = sorted(users, key=attrgetter('last_name', 'first_name'))
+print(users_by_name)
 
 # 以上用法适用于像 min() 和 max()
 print(min(users, key=attrgetter('user_id')))

@@ -6,18 +6,21 @@
 # @File    : p11_naming_slice.py
 # @Software: PyCharm
 
-# 命名切片
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p11_naming_slice.html
+"""
+命名切片
+
+代码中如果出现大量的硬编码会使得代码的可读性和可维护性大大降低。
+使用 slice() 可以使代码更加清晰可读。
+"""
 
 # 从一个记录（比如文件或其他类似格式）中的某些固定位置提取字段
-# 避免了使用大量难以理解的硬编码下标。这使得你的代码更加清晰可读。
 record = '....................100 .......513.25 ..........'
 SHARES = slice(20, 23)
 PRICE = slice(31, 37)
 cost = int(record[SHARES]) * float(record[PRICE])
 print(cost)
 
-# 其他用法
+# 切片对象的用法
 items = [0, 1, 2, 3, 4, 5, 6]
 a = slice(2, 4)
 print(items[a])
@@ -25,6 +28,9 @@ items[a] = [10, 11]
 print(items)
 del items[a]
 print(items)
+
+# 获取切片对象的属性
+a = slice(5, 50, 2)
 print(a.start, a.stop, a.step)
 
 # 可以通过调用切片的 indices(size) 方法将它映射到一个已知大小的序列上。
