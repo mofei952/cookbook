@@ -6,27 +6,29 @@
 # @File    : p18_map_names_to_sequence_elements.py
 # @Software: PyCharm
 
-# 映射名称到序列元素
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c01/p18_map_names_to_sequence_elements.html
+"""
+映射名称到序列元素
 
-# 通过下标访问列表或者元组中元素的代码，但是这样有时候会使得代码难以阅读，那么通过名称来访问元素。
-# 使用nametuple, namedtuple会返回一个元组的子类
+通过下标访问列表或者元组中元素的代码，但是这样有时候会使得代码难以阅读，那么如何通过名称来访问元素。
+"""
+
 from collections import namedtuple
 
+# 使用nametuple来通过名称访问序列元素，namedtuple会返回一个元组的子类
 Subscriber = namedtuple('Subscriber', ['addr', 'joined'])
 sub = Subscriber('jonesy@example.com', '2012-10-19')
-print(sub)  # Subscriber(addr='jonesy@example.com', joined='2012-10-19')
-print(sub[0])  # jonesy@example.com
-print(sub.addr)  # jo   nesy@example.com
-print(sub.joined)  # 2012-10-19
+print(sub)
+print(sub.addr)
+print(sub.joined)
 
 # 尽管 namedtuple 的实例看起来像一个普通的类实例，但是它跟元组类型是可交换的，支持所有的普通元组操作，比如索引和解压
+print(sub[0])
 print(len(sub))
 addr, joined = sub
 print(addr, joined)
 
 
-# 使用普通元组的代码
+# 使用普通元组的代码，下标操作通常会让代码表意不清晰，并且非常依赖记录的结构
 def compute_cost(records):
     total = 0.0
     for rec in records:
@@ -34,7 +36,7 @@ def compute_cost(records):
     return total
 
 
-# 下标操作通常会让代码表意不清晰，并且非常依赖记录的结构，下面是使用命名元组的版本
+# 下面是使用命名元组的版本
 Stock = namedtuple('Stock', ['name', 'shares', 'price'])
 def compute_cost2(records):
     total = 0.0
@@ -63,3 +65,9 @@ a = {'name': 'ACME', 'shares': 100, 'price': 123.45}
 print(dict_to_stock(a))  # Stock(name='ACME', shares=100, price=123.45, date=None, time=None)
 b = {'name': 'ACME', 'shares': 100, 'price': 123.45, 'date': '12/17/2012'}
 print(dict_to_stock(b))  # Stock(name='ACME', shares=100, price=123.45, date='12/17/2012', time=None)
+
+# 另一种方式给namedtuple设置默认值
+Stock = namedtuple('Stock', ['name', 'shares', 'price', 'date', 'time'])
+Stock.__new__.__defaults__ = ('', 0, 0.0, None, None)
+print(Stock())
+print(Stock('aa'))
