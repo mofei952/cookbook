@@ -6,11 +6,11 @@
 # @File    : p08_regexp_for_multiline_partterns.py
 # @Software: PyCharm
 
-# 多行匹配模式
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p08_regexp_for_multiline_partterns.html
+"""多行匹配模式"""
+
+import re
 
 # 跨越多行去匹配，注意(.)不能匹配换行符
-import re
 comment = re.compile(r'/\*(.*?)\*/')
 text1 = '/* this is a comment */'
 text2 = '''/* this is a
