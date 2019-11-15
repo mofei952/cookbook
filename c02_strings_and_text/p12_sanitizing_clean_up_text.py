@@ -6,8 +6,10 @@
 # @File    : p12_sanitizing_clean_up_text.py
 # @Software: PyCharm
 
-# 审查清理文本字符串
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p12_sanitizing_clean_up_text.html
+"""审查清理文本字符串"""
+
+import sys
+import unicodedata
 
 # 用translate清理空白字符
 s = 'pýtĥöñ\fis\tawesome\r\n'
@@ -21,8 +23,6 @@ print(a)
 
 # 使用 unicodedata.normalize() 将原始输入标准化为分解形式字符。
 # 再调用 translate 函数删除所有重音符
-import sys
-import unicodedata
 cmb_chrs = dict.fromkeys(c for c in range(sys.maxunicode)
                          if unicodedata.combining(chr(c)))
 b = unicodedata.normalize('NFD', a)
@@ -33,6 +33,7 @@ print(b.translate(cmb_chrs))
 digitmap = {c: ord('0') + unicodedata.digit(chr(c))
             for c in range(sys.maxunicode)
             if unicodedata.category(chr(c)) == 'Nd'}
+print(digitmap)
 print(len(digitmap))
 # Arabic digits
 x = '\u0661\u0662\u0663'

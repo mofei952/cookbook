@@ -6,10 +6,12 @@
 # @File    : p11_strip_unwanted_characters.py
 # @Software: PyCharm
 
-# 删除字符串中不需要的字符
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p11_strip_unwanted_characters.html
+"""删除字符串中不需要的字符"""
+
+import re
 
 # strip() 方法能用于删除开始或结尾的字符。 lstrip() 和 rstrip() 分别从左和从右执行删除操作
+# 默认情况下会去除空白字符，指定时去除指定字符
 # Whitespace stripping
 s = ' hello world \n'
 print(s.strip())
@@ -27,7 +29,6 @@ print(s)
 
 # 要去除字符串中间的空格，可以使用 replace() 方法或者是用正则表达式替换
 print(s.replace(' ', ''))
-import re
 print(re.sub('\s+', ' ', s))
 
 # 通常情况下字符串 strip 操作和其他迭代操作相结合，比如从文件中读取多行数据。
