@@ -32,7 +32,7 @@ print(s.replace(' ', ''))
 print(re.sub('\s+', ' ', s))
 
 # 通常情况下字符串 strip 操作和其他迭代操作相结合，比如从文件中读取多行数据。
-with open('p11_strip_unwanted_characters.txt') as f:
+with open('p11.txt') as f:
     lines = (line.strip() for line in f)
     for line in lines:
         print(line)
