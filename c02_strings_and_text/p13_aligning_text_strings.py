@@ -6,8 +6,7 @@
 # @File    : p13_aligning_text_strings.py
 # @Software: PyCharm
 
-# 字符串对齐
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p13_aligning_text_strings.html
+"""字符串对齐"""
 
 # 基本的字符串对齐操作，可以使用字符串的 ljust() , rjust() 和 center() 方法
 text = 'Hello World'
@@ -16,8 +15,8 @@ print(text.rjust(20))
 print(text.center(20))
 
 # 以上方法都能接受一个可选的填充字符
-print(text.rjust(20,'='))
-print(text.center(20,'*'))
+print(text.rjust(20, '='))
+print(text.center(20, '*'))
 
 # 函数 format() 同样可以用来很容易的对齐字符串
 print(format(text, '>20'))
