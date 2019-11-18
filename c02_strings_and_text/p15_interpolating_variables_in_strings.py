@@ -6,13 +6,12 @@
 # @File    : p15_interpolating_variables_in_strings.py
 # @Software: PyCharm
 
-# 字符串中插入变量
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c02/p15_interpolating_variables_in_strings.html
+"""字符串中插入变量"""
 
-# 使用字符串的 format() 方法
 import string
 import sys
 
+# 使用字符串的 format() 方法
 s = '{name} has {n} messages.'
 print(s.format(name='Guido', n=37))
 
