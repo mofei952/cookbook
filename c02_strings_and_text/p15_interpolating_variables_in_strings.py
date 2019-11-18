@@ -8,7 +8,6 @@
 
 """字符串中插入变量"""
 
-import string
 import sys
 
 # 使用字符串的 format() 方法
@@ -26,8 +25,6 @@ class Info():
     def __init__(self, name, n):
         self.name = name
         self.n = n
-
-
 info = Info('Guido', 37)
 print(s.format_map(vars(info)))
 
