@@ -9,10 +9,9 @@
 """在字符串中处理html和xml"""
 
 import html
-
-# 使用html.escape()进行转义编码
 from xml.sax.saxutils import unescape
 
+# 使用html.escape()进行转义编码
 s = 'Elements are written as "<tag>text</tag>".'
 print(s)
 print(html.escape(s))
