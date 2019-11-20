@@ -6,8 +6,7 @@
 # @File    : p01_round_number.py
 # @Software: PyCharm
 
-# 数字的四舍五入
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p01_round_number.html
+"""数字的四舍五入"""
 
 # 使用内置的 round(value, ndigits) 函数
 print(round(1.23, 1))
@@ -40,5 +39,5 @@ a = 2.1
 b = 4.2
 c = a + b
 print(c)
-c = round(c, 2) # "Fix" result (???)
+c = round(c, 2)  # "Fix" result (???) 不推荐
 print(c)
