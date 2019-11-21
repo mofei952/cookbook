@@ -6,8 +6,7 @@
 # @File    : p04_binary_octal_hexadecimal_int.py
 # @Software: PyCharm
 
-# 二八十六进制整数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p04_binary_octal_hexadecimal_int.html
+"""二八十六进制整数"""
 
 # 使用 bin() , oct() 或 hex() 函数
 x = 1234
