@@ -8,6 +8,8 @@
 
 """字节到大整数的打包与解包"""
 
+import struct
+
 # 使用 int.from_bytes() 方法将bytes解析为整数
 data = b'\x00\x124V\x00x\x90\xab\x00\xcd\xef\x01\x00#\x004'
 print(len(data))
@@ -18,6 +20,10 @@ print(int.from_bytes(data, 'big'))  # 指定字节顺序为big
 x = 94522842520747284487117727783387188
 print(x.to_bytes(16, 'big'))
 print(x.to_bytes(16, 'little'))
+
+# 使用struct模块来解压字节
+hi, lo = struct.unpack('>QQ', data)
+print((hi << 64) + lo)
 
 # 字节顺序规则（little或big）仅仅指定了构造正数时的字节的低位高位排列方式
 # big代表使用大端存储 较高的有效字节存放在较低的存储器地址，较低的有效字节存放在较高的存储器地址。
