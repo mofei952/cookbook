@@ -6,8 +6,9 @@
 # @File    : p09_calculating_with_large_num_arrays.py
 # @Software: PyCharm
 
-# 大型数组运算
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p09_calculating_with_large_num_arrays.html
+"""大型数组运算"""
+
+import numpy as np
 
 # 标准列表对象
 x = [1, 2, 3, 4]
@@ -17,7 +18,6 @@ print(x * 2)
 print(x + y)
 
 # NumPy数组对象
-import numpy as np
 ax = np.array([1, 2, 3, 4])
 ay = np.array([5, 6, 7, 8])
 print(ax)
@@ -37,10 +37,8 @@ print(np.sqrt(ax))
 print(np.cos(ax))
 
 # 使用这些通用函数要比循环数组并使用 math 模块中的函数执行计算要快的多
-# 底层实现中， NumPy 数组使用了C或者Fortran语言的机制分配内存。
-# 也就是说，它们是一个非常大的连续的并由同类型数据组成的内存区域。
-# 所以，你可以构造一个比普通Python列表大的多的数
-# 可以很轻松的构造一个10,000*10,000的浮点数二维网格
+# 底层实现中， NumPy 数组使用了C或者Fortran语言的机制分配内存。也就是说，它们是一个非常大的连续的并由同类型数据组成的内存区域。
+# 所以可以构造一个比普通Python列表大的多的数，比如可以很轻松的构造一个10,000*10,000的浮点数二维网格
 grid = np.zeros(shape=(10000, 10000), dtype=float)
 print(grid)
 
@@ -52,8 +50,8 @@ print(np.sin(grid))
 # NumPy扩展Python列表的索引功能
 a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
 print(a)
-print(a[1])
-print(a[:, 1])
+print(a[1])  # row 1
+print(a[:, 1])  # column 1
 print(a[1:3, 1:3])
 a[1:3, 1:3] += 10
 print(a)
