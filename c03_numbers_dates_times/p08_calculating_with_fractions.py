@@ -6,11 +6,11 @@
 # @File    : p08_calculating_with_fractions.py
 # @Software: PyCharm
 
-# 分数运算
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p08_calculating_with_fractions.html
+"""分数运算"""
+
+from fractions import Fraction
 
 # fractions 模块可以被用来执行包含分数的数学运算
-from fractions import Fraction
 a = Fraction(5, 4)
 b = Fraction(7, 16)
 print(a + b)

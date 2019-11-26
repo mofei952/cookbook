@@ -6,8 +6,9 @@
 # @File    : p07_infinity_and_nan.py
 # @Software: PyCharm
 
-# 无穷大与NaN
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p07_infinity_and_nan.html
+"""无穷大与NaN"""
+
+import math
 
 # 可以使用 float() 来创建它们
 a = float('inf')
@@ -16,7 +17,6 @@ c = float('nan')
 print(a, b, c)
 
 # 使用 math.isinf() 和 math.isnan() 函数测试这些值
-import math
 print(math.isinf(a))
 print(math.isinf(b))
 print(math.isnan(c))
