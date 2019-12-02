@@ -128,7 +128,7 @@ t_RPAREN = r'\)'
 
 # Token processing functions
 def t_NUM(t):
-    r'\d+'
+    r'-?\d+'
     t.value = int(t.value)
     return t
 
@@ -203,3 +203,6 @@ parser = yacc()
 print(parser.parse('2'))
 print(parser.parse('2+3'))
 print(parser.parse('2+(3+4)*5'))
+
+print(parser.parse('-2+3'))
+print(parser.parse('2+(-3+4)*5'))
