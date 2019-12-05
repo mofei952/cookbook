@@ -15,7 +15,7 @@ import c10_modules_and_packages.p01.jpg as j
 print(jpg)
 print(j)
 
-# 导入模块的层级包
+# 导入层级包，有有__init__文件才能导入
 # 要访问指定模块必须在__init__文件中包含对应模块
 from c10_modules_and_packages import p01
 
