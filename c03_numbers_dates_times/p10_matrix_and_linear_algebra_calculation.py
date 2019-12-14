@@ -6,11 +6,11 @@
 # @File    : p10_matrix_and_linear_algebra_calculation.py
 # @Software: PyCharm
 
-# 矩阵与线性代数运算
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p10_matrix_and_linear_algebra_calculation.html
+"""矩阵与线性代数运算"""
+
+import numpy as np
 
 # 使用NumPy的矩阵对象
-import numpy as np
 m = np.matrix([[1, -2, 3], [0, 4, 5], [7, 8, -9]])
 print(m)
 

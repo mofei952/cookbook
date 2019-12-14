@@ -6,11 +6,11 @@
 # @File    : p11_pick_things_at_random.py
 # @Software: PyCharm
 
-# 随机选择
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p11_pick_things_at_random.html
+"""随机选择"""
+
+import random
 
 # 使用 random.choice() 从一个序列中随机的抽取一个元素
-import random
 values = [1, 2, 3, 4, 5, 6]
 print(random.choice(values))
 print(random.choice(values))
