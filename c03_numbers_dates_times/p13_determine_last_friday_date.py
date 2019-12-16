@@ -6,8 +6,7 @@
 # @File    : p13_determine_last_friday_date.py
 # @Software: PyCharm
 
-# 计算最后一个周五的日期
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p13_determine_last_friday_date.html
+"""计算最后一个周五的日期"""
 
 # 查找星期中某一天最后出现的日期，比如星期五
 from datetime import datetime, timedelta

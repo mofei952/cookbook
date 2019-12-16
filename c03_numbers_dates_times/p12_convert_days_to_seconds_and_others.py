@@ -6,11 +6,12 @@
 # @File    : p12_convert_days_to_seconds_and_others.py
 # @Software: PyCharm
 
-# 基本的日期与时间转换
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p12_convert_days_to_seconds_and_others.html
+"""基本的日期与时间转换"""
+
+from datetime import timedelta, datetime
+from dateutil.relativedelta import relativedelta, MO
 
 # 使用 timedelta 实例来表示一个时间段，进行不同时间单位的转换和计算
-from datetime import timedelta
 a = timedelta(days=2, hours=6)
 b = timedelta(hours=4.5)
 c = a + b
@@ -21,7 +22,6 @@ print(c.total_seconds())
 print(c.total_seconds() / 3600)
 
 # 使用datetime实例表示指定的日期和时间
-from datetime import datetime
 a = datetime(2012, 9, 23)
 print(a + timedelta(days=10))
 b = datetime(2012, 12, 21)
@@ -44,7 +44,6 @@ print(a - b)
 a = datetime(2012, 9, 23)
 print(a)
 # print(a+timedelta(months=1))# 'months' is an invalid keyword argument for this function
-from dateutil.relativedelta import relativedelta
 print(a + relativedelta(months=1))
 print(a + relativedelta(months=4))
 b = datetime(2012, 12, 21)
