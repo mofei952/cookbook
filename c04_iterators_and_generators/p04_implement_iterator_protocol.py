@@ -6,8 +6,8 @@
 # @File    : p04_implement_iterator_protocol.py
 # @Software: PyCharm
 
-# 实现迭代器协议
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c04/p04_implement_iterator_protocol.html
+"""实现迭代器协议"""
+
 
 # 实现一个以深度优先方式遍历树形节点的生成器
 class Node:
@@ -29,6 +29,7 @@ class Node:
         for node in self:
             yield from node.depth_first()
 
+
 if __name__ == '__main__':
     root = Node(0)
     child1 = Node(1)
@@ -41,17 +42,3 @@ if __name__ == '__main__':
 
     for node in root.depth_first():
         print(node)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
