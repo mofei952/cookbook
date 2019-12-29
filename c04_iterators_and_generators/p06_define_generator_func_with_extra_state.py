@@ -6,8 +6,7 @@
 # @File    : p06_define_generator_func_with_extra_state.py
 # @Software: PyCharm
 
-# 带有外部状态的生成器函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c04/p06_define_generator_func_with_extra_state.html
+"""带有外部状态的生成器函数"""
 
 from collections import deque
 
@@ -29,6 +28,8 @@ class linehistory:
 
 lines = linehistory(['a', 'b', 'c', 'd', 'e'])
 for line in lines:
-    if line == 'd':
+    if line in ['c', 'e']:
         for lineno, line in lines.history:
             print('{}:{}'.format(lineno, line), end=' ')
+        lines.clear()
+        print()
