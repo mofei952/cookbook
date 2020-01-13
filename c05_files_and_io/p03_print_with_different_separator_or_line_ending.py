@@ -6,8 +6,7 @@
 # @File    : p03_print_with_different_separator_or_line_ending.py
 # @Software: PyCharm
 
-# 使用其他分隔符或行终止符打印
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c05/p03_print_with_different_separator_or_line_ending.html
+"""使用其他分隔符或行终止符打印"""
 
 # 使用print()函数时，改变默认的分隔符或者行尾符
 print('aa', 1, 22)

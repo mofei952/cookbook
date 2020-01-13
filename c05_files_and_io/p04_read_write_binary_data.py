@@ -6,8 +6,9 @@
 # @File    : p04_read_write_binary_data.py
 # @Software: PyCharm
 
-# 读写字节数据
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c05/p04_read_write_binary_data.html
+"""读写字节数据"""
+
+import array
 
 # 使用模式为 rb 或 wb 的 open() 函数来读取或写入二进制数据
 with open('p04.bin', 'wb') as f:
@@ -29,8 +30,7 @@ with open('p04.bin', 'rb') as f:
     data = f.read()
     print(data.decode('utf8'))
 
-# 二进制I/O还有一个特性就是数组和C结构体类型能直接被写入，而不需要中间转换为自己对象
-import array
+# 二进制I/O还有一个特性就是数组和C结构体类型能直接被写入，而不需要中间转换为字节对象
 nums = array.array('i', [1, 2, 3, 4])
 with open('p04.bin', 'wb') as f:
     f.write(nums)
@@ -40,3 +40,5 @@ a = array.array('i', [0, 0, 0, 0, 0, 0, 0, 0])
 with open('p04.bin', 'rb') as f:
     f.readinto(a)
 print(a)
+
+# 使用这种技术的时候需要格外小心，因为它通常具有平台相关性，并且可能会依赖字长和字节顺序(高位优先和低位优先)。
