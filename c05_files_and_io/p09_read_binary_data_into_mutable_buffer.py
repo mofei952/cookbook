@@ -30,11 +30,10 @@ print(buf)
 with open('p09.bin', 'wb') as f:
     f.write(buf)
 
-# readinto() 填充已存在的缓冲区而不是为新对象重新分配内存再返回它们。
-# 因此，可以使用它来避免大量的内存分配操作。
+# readinto() 填充已存在的缓冲区而不是为新对象重新分配内存再返回它们。因此，可以使用它来避免大量的内存分配操作。
 # 比如，如果读取一个由相同大小的记录组成的二进制文件时
 with open('p09.bin', 'wb') as f:
-    f.write(b'12345ABCDE12345')
+    f.write(b'12345ABCDE12345AA')
 
 record_size = 5
 buf = bytearray(record_size)
@@ -43,6 +42,7 @@ with open('p09.bin', 'rb') as f:
         n = f.readinto(buf)
         # 使用 f.readinto() 时需要注意的是，必须检查它的返回值，也就是实际读取的字节数。
         if n < record_size:
+            print(buf[:n])
             break
         print(buf)
 
