@@ -29,3 +29,8 @@ print(os.path.realpath(filename))
 print(os.path.getsize(filename))
 print(os.path.getmtime(filename))
 print(time.ctime(os.path.getmtime(filename)))
+
+# 使用os.stat()获取文件的元数据
+meta = os.stat(filename)
+print(meta.st_size)
+print(meta.st_mtime)
