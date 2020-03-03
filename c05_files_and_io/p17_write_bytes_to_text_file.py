@@ -6,7 +6,7 @@
 # @File    : p17_write_bytes_to_text_file.py
 # @Software: PyCharm
 
-"""将字节写入文件文件"""
+"""将字节写入文本文件"""
 
 import sys
 
