@@ -7,13 +7,13 @@
 # @Software: PyCharm
 
 """序列化Python对象"""
+
 import math
 import pickle
-
-# 将对象保存到文件
 import threading
 import time
 
+# 将对象保存到文件
 data = 'dadasd'
 f = open('p21', 'wb')
 pickle.dump(data, f)
