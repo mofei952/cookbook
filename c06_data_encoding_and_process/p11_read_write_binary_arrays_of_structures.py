@@ -8,7 +8,9 @@
 
 """读写二进制数组数据"""
 
+from collections import namedtuple
 from struct import Struct
+import numpy as np
 
 
 # 将一个元组写入二进制文件
@@ -51,3 +53,18 @@ with open('p11.b', 'rb') as f:
     data = f.read()
 for rec in unpack_records('<idd', data):
     print(rec)
+
+# 解包时，可以使用collections模块的命名元组对象
+Records = namedtuple('Records', ['kind', 'x', 'y'])
+
+with open('p11.b', 'rb') as f:
+    records = [Records(*r) for r in read_records('<idd', f)]
+
+for r in records:
+    print(r)
+
+# 如果要处理大量的二进制数据，最好使用numpy模块
+f = open('p11.b', 'rb')
+records = np.fromfile(f, dtype='<i,<d,<d')
+print(records)
+print(records[0])
