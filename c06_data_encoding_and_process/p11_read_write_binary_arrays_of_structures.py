@@ -13,12 +13,13 @@ from struct import Struct
 import numpy as np
 
 
-# 将一个元组写入二进制文件
+# 将元组写入二进制文件
 def write_records(records, format, f):
     record_struct = Struct(format)
     for r in records:
-        print(record_struct.pack(*r))
-        f.write(record_struct.pack(*r))
+        s = record_struct.pack(*r)
+        print(s)
+        f.write(s)
 
 
 records = [
@@ -30,7 +31,7 @@ with open('p11.b', 'wb') as f:
     write_records(records, '<idd', f)
 
 
-# 　读取文件并返回元组列表，以增量方式读取
+# 读取文件并返回元组列表，以增量方式读取
 def read_records(format, f):
     record_struct = Struct(format)
     chunks = iter(lambda: f.read(record_struct.size), b'')
@@ -61,7 +62,7 @@ with open('p11.b', 'rb') as f:
     records = [Records(*r) for r in read_records('<idd', f)]
 
 for r in records:
-    print(r)
+    print(r, r.kind, r.x, r.y)
 
 # 如果要处理大量的二进制数据，最好使用numpy模块
 f = open('p11.b', 'rb')
