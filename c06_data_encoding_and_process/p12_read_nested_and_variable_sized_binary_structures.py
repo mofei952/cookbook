@@ -23,7 +23,6 @@ polys = [
 # 文件头部是固定长度的多边形汇总信息
 # 然后写入多边形数据，每个多边形数据写入前会先写入字节长度，方便读取时使用
 def write_polys(filename, polys):
-    # Determine bounding box
     flattened = list(itertools.chain(*polys))
     min_x = min(x for x, y in flattened)
     max_x = max(x for x, y in flattened)
@@ -36,7 +35,7 @@ def write_polys(filename, polys):
                             len(polys)))
         for poly in polys:
             size = len(poly) * struct.calcsize('<dd')
-            f.write(struct.pack('<i', size + 4))
+            f.write(struct.pack('<i', size))
             for pt in poly:
                 f.write(struct.pack('<dd', *pt))
 
@@ -48,7 +47,6 @@ write_polys('p12.bin', polys)
 # 读取多边形数据时，先读取第一个位置的字节长度信息，再读取指定长度的数据
 def read_polys(filename):
     with open(filename, 'rb') as f:
-        # Read the header
         header = f.read(40)
         file_code, min_x, min_y, max_x, max_y, num_polys = \
             struct.unpack('<iddddi', header)
@@ -66,3 +64,162 @@ def read_polys(filename):
 polys = read_polys('p12.bin')
 for poly in polys:
     print(poly)
+print()
+
+
+# 使用类来解析字节数据
+class StructField:
+    def __init__(self, format, offset):
+        self.format = format
+        self.offset = offset
+
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        else:
+            r = struct.unpack_from(self.format, instance._buffer, self.offset)
+            return r[0] if len(r) == 1 else r
+
+
+class Structure:
+    def __init__(self, bytedata):
+        self._buffer = memoryview(bytedata)
+
+
+class PolyHeader(Structure):
+    file_code = StructField('<i', 0)
+    min_x = StructField('<d', 4)
+    min_y = StructField('<d', 12)
+    max_x = StructField('<d', 20)
+    max_y = StructField('<d', 28)
+    num_polys = StructField('<i', 36)
+
+
+f = open('p12.bin', 'rb')
+phead = PolyHeader(f.read(40))
+print(phead.file_code == 0x1234)
+print(phead.min_x)
+print(phead.min_y)
+print(phead.max_x)
+print(phead.max_y)
+print(phead.num_polys)
+print()
+
+
+# 使用元类改造Structure类
+class StructureMeta(type):
+
+    def __init__(self, clsname, bases, clsdict):
+        fields = getattr(self, '_fields_', [])
+        byte_order = ''
+        offset = 0
+        for format, fieldname in fields:
+            if format.startswith(('<', '>', '!', '@')):
+                byte_order = format[0]
+                format = format[1:]
+            format = byte_order + format
+            setattr(self, fieldname, StructField(format, offset))
+            offset += struct.calcsize(format)
+        setattr(self, 'struct_size', offset)
+
+
+class Structure(metaclass=StructureMeta):
+    def __init__(self, bytedata):
+        self._buffer = bytedata
+
+    @classmethod
+    def from_file(cls, f):
+        return cls(f.read(cls.struct_size))
+
+
+class PolyHeader(Structure):
+    _fields_ = [
+        ('<i', 'file_code'),
+        ('d', 'min_x'),
+        ('d', 'min_y'),
+        ('d', 'max_x'),
+        ('d', 'max_y'),
+        ('i', 'num_polys')
+    ]
+
+
+f = open('p12.bin', 'rb')
+phead = PolyHeader.from_file(f)
+print(phead.file_code == 0x1234)
+print(phead.min_x)
+print(phead.min_y)
+print(phead.max_x)
+print(phead.max_y)
+print(phead.num_polys)
+print()
+
+
+# 改进元类，支持嵌套字节结构
+class NestedStruct:
+    def __init__(self, name, struct_type, offset):
+        self.name = name
+        self.struct_type = struct_type
+        self.offset = offset
+
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        else:
+            data = instance._buffer[self.offset:self.offset + self.struct_type.struct_size]
+            result = self.struct_type(data)
+            setattr(instance, self.name, result)
+            return result
+
+
+class StructureMeta(type):
+    def __init__(self, clsname, bases, clsdict):
+        fields = getattr(self, '_fields_', [])
+        byte_order = ''
+        offset = 0
+        for format, fieldname in fields:
+            if isinstance(format, StructureMeta):
+                setattr(self, fieldname, NestedStruct(fieldname, format, offset))
+                offset += format.struct_size
+            else:
+                if format.startswith(('<', '>', '!', '@')):
+                    byte_order = format[0]
+                    format = format[1:]
+                format = byte_order + format
+                setattr(self, fieldname, StructField(format, offset))
+                offset += struct.calcsize(format)
+        setattr(self, 'struct_size', offset)
+
+
+class Structure(metaclass=StructureMeta):
+    def __init__(self, bytedata):
+        self._buffer = bytedata
+
+    @classmethod
+    def from_file(cls, f):
+        return cls(f.read(cls.struct_size))
+
+
+class Point(Structure):
+    _fields_ = [
+        ('<d', 'x'),
+        ('d', 'y')
+    ]
+
+
+class PolyHeader(Structure):
+    _fields_ = [
+        ('<i', 'file_code'),
+        (Point, 'min'),  # nested struct
+        (Point, 'max'),  # nested struct
+        ('i', 'num_polys')
+    ]
+
+
+f = open('p12.bin', 'rb')
+phead = PolyHeader.from_file(f)
+print(phead.file_code == 0x1234)
+print(phead.min.x)
+print(phead.min.y)
+print(phead.max.x)
+print(phead.max.y)
+print(phead.num_polys)
