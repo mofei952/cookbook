@@ -35,7 +35,7 @@ def write_polys(filename, polys):
                             len(polys)))
         for poly in polys:
             size = len(poly) * struct.calcsize('<dd')
-            f.write(struct.pack('<i', size))
+            f.write(struct.pack('<i', size + 4))
             for pt in poly:
                 f.write(struct.pack('<dd', *pt))
 
@@ -192,7 +192,7 @@ class StructureMeta(type):
 
 class Structure(metaclass=StructureMeta):
     def __init__(self, bytedata):
-        self._buffer = bytedata
+        self._buffer = memoryview(bytedata)
 
     @classmethod
     def from_file(cls, f):
@@ -223,3 +223,61 @@ print(phead.min.y)
 print(phead.max.x)
 print(phead.max.y)
 print(phead.num_polys)
+
+
+# 写一个类用于从文件中读取带大小前缀的数据块
+class SizedRecord:
+    def __init__(self, bytedata):
+        self._buffer = memoryview(bytedata)
+
+    @classmethod
+    def from_file(cls, f, size_fmt, includes_size=True):
+        sz_nbytes = struct.calcsize(size_fmt)
+        sz_bytes = f.read(sz_nbytes)
+        sz, = struct.unpack(size_fmt, sz_bytes)
+        buf = f.read(sz - includes_size * sz_nbytes)
+        return cls(buf)
+
+    def iter_as(self, code):
+        if isinstance(code, str):
+            s = struct.Struct(code)
+            for off in range(0, len(self._buffer), s.size):
+                yield s.unpack_from(self._buffer, off)
+        elif isinstance(code, StructureMeta):
+            size = code.struct_size
+            for off in range(0, len(self._buffer), size):
+                data = self._buffer[off:off + size]
+                yield code(data)
+
+
+f = open('p12.bin', 'rb')
+phead = PolyHeader.from_file(f)
+polydata = [SizedRecord.from_file(f, '<i') for n in range(phead.num_polys)]
+print(polydata)
+
+for n, poly in enumerate(polydata):
+    print('Polygon', n)
+    for p in poly.iter_as('<dd'):
+        print(p)
+
+for n, poly in enumerate(polydata):
+    print('Polygon', n)
+    for p in poly.iter_as(Point):
+        print(p.x, p.y)
+print()
+
+
+# 封装为read_polys函数
+def read_polys(filename):
+    polys = []
+    with open(filename, 'rb') as f:
+        phead = PolyHeader.from_file(f)
+        for n in range(phead.num_polys):
+            rec = SizedRecord.from_file(f, '<i')
+            poly = [(p.x, p.y) for p in rec.iter_as(Point)]
+            polys.append(poly)
+        return polys
+
+
+for p in read_polys('p12.bin'):
+    print(p)
