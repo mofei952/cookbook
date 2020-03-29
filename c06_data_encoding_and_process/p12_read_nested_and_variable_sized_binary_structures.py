@@ -67,7 +67,7 @@ for poly in polys:
 print()
 
 
-# 使用类来解析字节数据
+# 使用类来解析字节数据，提供一个通用的解决方案
 class StructField:
     def __init__(self, format, offset):
         self.format = format
@@ -106,7 +106,7 @@ print(phead.num_polys)
 print()
 
 
-# 使用元类改造Structure类
+# 使用元类改造Structure类，让类使用起来更简洁
 class StructureMeta(type):
 
     def __init__(self, clsname, bases, clsdict):
@@ -223,6 +223,7 @@ print(phead.min.y)
 print(phead.max.x)
 print(phead.max.y)
 print(phead.num_polys)
+print()
 
 
 # 写一个类用于从文件中读取带大小前缀的数据块
@@ -267,7 +268,7 @@ for n, poly in enumerate(polydata):
 print()
 
 
-# 封装为read_polys函数
+# 将所有这些结合起来，就是一个read_polys函数的另一个版本
 def read_polys(filename):
     polys = []
     with open(filename, 'rb') as f:

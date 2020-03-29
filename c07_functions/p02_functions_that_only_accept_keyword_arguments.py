@@ -6,14 +6,15 @@
 # @File    : p02_functions_that_only_accept_keyword_arguments.py
 # @Software: PyCharm
 
-# 只接受关键字参数的函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p02_functions_that_only_accept_keyword_arguments.html
+"""只接受关键字参数的函数"""
+
 
 # 要让函数的某些参数强制使用关键字参数传递，将强制关键字参数放在某个*参数或者某个*后面就可以实现
 # 使用强制关键字参数会比使用位置参数表意更加清晰，程序也更加具有可读性
 def recv(maxsize, *, block):
     """Receives a message"""
     pass
+
 
 # recv(1024, True)  # TypeError: recv() takes 1 positional argument but 2 were given
 recv(1024, block=True)
