@@ -6,8 +6,8 @@
 # @File    : p04_return_multiple_values_from_function.py
 # @Software: PyCharm
 
-# 返回多个值的函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p04_return_multiple_values_from_function.html
+"""返回多个值的函数"""
+
 
 # 函数可以return一个元组，括号可以省略，实际上还是先创建了一个元组然后返回的
 def myfun():
