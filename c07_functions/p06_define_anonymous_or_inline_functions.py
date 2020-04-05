@@ -6,8 +6,7 @@
 # @File    : p06_define_anonymous_or_inline_functions.py
 # @Software: PyCharm
 
-# 定义匿名或内联函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p06_define_anonymous_or_inline_functions.html
+"""定义匿名或内联函数"""
 
 # 使用lambda表达式
 add = lambda x, y: x + y
@@ -19,6 +18,5 @@ names = ['David Beazley', 'Brian Jones',
          'Raymond Hettinger', 'Ned Batchelder']
 print(sorted(names, key=lambda name: name.split()[-1].lower()))
 
-# 尽管lambda表达式允许定义简单函数，但是它的使用是有限制的
-# 你只能指定单个表达式，它的值就是最后的返回值
-# 当编写大量计算表达式值的短小函数或者需要用户提供回调函数的程序的时候，就会用到lambda表达式
+# lambda表达式有个限制是只能指定单个表达式
+# 当编写大量计算表达式值的短小函数或者需要用户提供回调函数的程序的时候，可以用到lambda表达式
