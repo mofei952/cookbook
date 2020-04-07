@@ -6,8 +6,7 @@
 # @File    : p07_capturing_variables_in_anonymous_functions.py
 # @Software: PyCharm
 
-# 匿名函数捕获变量值
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p07_capturing_variables_in_anonymous_functions.html
+"""匿名函数捕获变量值"""
 
 x = 10
 a = lambda y: x + y
@@ -30,11 +29,12 @@ x = 20
 b = lambda y, x=x: x + y
 print(a(10))
 print(b(10))
+print()
 
 # 通过在一个循环或列表推导中创建一个lambda表达式列表，并期望函数能在定义时就记住每次的迭代值
-funcs = [lambda x: x+n for n in range(5)]
+funcs = [lambda x: x + n for n in range(5)]
 for f in funcs:
     print(f(0))
-funcs = [lambda x, n=n: x+n for n in range(5)]
+funcs = [lambda x, n=n: x + n for n in range(5)]
 for f in funcs:
     print(f(0))
