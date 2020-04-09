@@ -7,14 +7,12 @@
 # @Software: PyCharm
 
 """减少可调用对象的参数个数"""
-import logging
+
 import math
 from functools import partial
 
+
 # 使用functools.partial创建偏函数
-from multiprocessing.pool import Pool
-
-
 def spam(a, b, c, d):
     print(a, b, c, d)
 
