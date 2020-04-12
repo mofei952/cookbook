@@ -9,6 +9,21 @@
 # 带额外状态信息的回调函数
 # https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p10_carry_extra_state_with_callback_functions.html
 
+def func(i):
+    def f_closure(a):  # <<<---
+        return i + a
+    return f_closure
+
+_list = []
+for i in range(3):
+    _list.append(func(i))
+
+for f in _list:
+    print(f(1))
+import logging
+exit()
+
+
 # 使用回调函数
 def apply_async(func, args, *, callback):
     # Compute the result
