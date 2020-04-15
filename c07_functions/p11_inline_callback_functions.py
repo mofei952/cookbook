@@ -6,22 +6,20 @@
 # @File    : p11_inline_callback_functions.py
 # @Software: PyCharm
 
-# 内联回调函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p11_inline_callback_functions.html
+"""内联回调函数"""
+
+from queue import Queue
+from functools import wraps
+
 
 # 编写使用回调函数的代码的时候，很多小函数的扩张可能会弄乱程序控制流。
-# 希望找到某个方法来让代码看上去更像是一个普通的执行序列
-# 通过使用生成器和协程可以使得回调函数内联在某个函数中
+# 希望找到某个方法来让代码看上去更像是一个普通的执行序列，通过使用生成器和协程可以使得回调函数内联在某个函数中
 def apply_async(func, args, *, callback):
     # Compute the result
     result = func(*args)
 
     # Invoke the callback with the result
     callback(result)
-
-
-from queue import Queue
-from functools import wraps
 
 
 class Async:
@@ -65,6 +63,7 @@ def test():
 
 if __name__ == '__main__':
     import multiprocessing
+
     pool = multiprocessing.Pool()
     apply_async = pool.apply_async
 

@@ -6,22 +6,11 @@
 # @File    : p10_carry_extra_state_with_callback_functions.py
 # @Software: PyCharm
 
-# 带额外状态信息的回调函数
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p10_carry_extra_state_with_callback_functions.html
+"""
+带额外状态信息的回调函数
 
-def func(i):
-    def f_closure(a):  # <<<---
-        return i + a
-    return f_closure
-
-_list = []
-for i in range(3):
-    _list.append(func(i))
-
-for f in _list:
-    print(f(1))
-import logging
-exit()
+代码中需要依赖到回调函数的使用(比如事件处理器、等待后台任务完成后的回调等)， 并且还需要让回调函数拥有额外的状态值，以便在它的内部使用到。
+"""
 
 
 # 使用回调函数
@@ -61,7 +50,7 @@ apply_async(add, (2, 3), callback=r.handler)
 apply_async(add, ('hello', 'world'), callback=r.handler)
 
 
-# 第二种方式，作为类的替代，使用一个闭包捕获状态值
+# 作为类的替代，使用一个闭包捕获状态值
 def make_handler():
     sequence = 0
 
