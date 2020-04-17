@@ -6,12 +6,12 @@
 # @File    : p12_access_variables_defined_inside_closure.py
 # @Software: PyCharm
 
-# 访问闭包中定义的变量
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c07/p12_access_variables_defined_inside_closure.html
+"""访问闭包中定义的变量"""
+
+import sys
+
 
 # 通过编写访问函数并将其作为函数属性绑定到闭包上来实现
-# nonlocal 声明可以让我们编写函数来修改内部变量的值
-# 函数属性允许我们用一种很简单的方式将访问方法绑定到闭包函数上
 def sample():
     n = 0
 
@@ -37,13 +37,7 @@ f()
 print(f.get_n())
 
 
-
-
-
 # 还可以让闭包模拟类的实例
-import sys
-
-
 class ClosureInstance:
     def __init__(self, locals=None):
         if locals is None:
