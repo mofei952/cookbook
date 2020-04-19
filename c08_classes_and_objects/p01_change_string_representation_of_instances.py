@@ -6,8 +6,8 @@
 # @File    : p01_change_string_representation_of_instances.py
 # @Software: PyCharm
 
-# 改变对象的字符串显示
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p01_change_string_representation_of_instances.html
+"""改变对象的字符串显示"""
+
 
 # 使对象实例的打印更具可读性
 class Pair:
@@ -22,10 +22,8 @@ class Pair:
         return '({0.x!r}, {0.y!r})'.format(self)
 
 
-# __repr__() 方法返回一个实例的代码表示形式，通常用来重新构造这个实例。
-# 内置的 repr() 函数返回这个字符串，跟使用交互式解释器显示的值是一样的。
-# __str__() 方法将实例转换为一个字符串，使用 str() 或 print() 函数会输出这个字符串
-# 如果 __str__() 没有被定义，那么就会使用 __repr__() 来代替输出。
+# __repr__() 方法返回一个实例的代码表示形式，通常用来重新构造这个实例。内置的 repr() 函数返回这个字符串，跟使用交互式解释器显示的值是一样的。
+# __str__() 方法将实例转换为一个字符串，使用 str() 或 print() 函数会输出这个字符串，如果 __str__() 没有被定义，那么就会使用 __repr__() 来代替输出。
 p = Pair(3, 4)
 print(p)
 print(repr(p))
