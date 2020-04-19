@@ -6,8 +6,9 @@
 # @File    : p02_customizing_string_formatting.py
 # @Software: PyCharm
 
-# 自定义字符串的格式化
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p02_customizing_string_formatting.html
+"""自定义字符串的格式化"""
+
+from datetime import date
 
 _formats = {
     'ymd': '{d.year}-{d.month}-{d.day}',
@@ -35,3 +36,10 @@ print(format(d))
 print(format(d, 'mdy'))
 print('The date is {:ymd}'.format(d))
 print('The date is {:mdy}'.format(d))
+print()
+
+# 格式化代码的解析工作完全由类自己决定，因此格式化代码可以是人任意值，就像内置的date类一样
+d = date(2012, 12, 21)
+print(format(d))
+print(format(d, '%A, %B %d, %Y'))
+print('The end is {:%d %b %Y}. Goodbye'.format(d))
