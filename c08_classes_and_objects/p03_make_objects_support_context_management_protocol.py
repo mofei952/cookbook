@@ -6,10 +6,10 @@
 # @File    : p03_make_objects_support_context_management_protocol.py
 # @Software: PyCharm
 
-# 让对象支持上下文管理协议
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p03_make_objects_support_context_management_protocol.html
+"""让对象支持上下文管理协议"""
 
 from socket import socket, AF_INET, SOCK_STREAM
+from functools import partial
 
 
 # 要让一个对象兼容 with 语句，需要实现 __enter__() 和 __exit__() 方法
@@ -32,10 +32,7 @@ class LazyConnection:
         self.sock = None
 
 
-from functools import partial
-
 conn = LazyConnection(('www.python.org', 80))
-# Connection closed
 with conn as s:
     # conn.__enter__() executes: connection open
     s.send(b'GET /index.html HTTP/1.0\r\n')

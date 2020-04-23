@@ -6,11 +6,10 @@
 # @File    : p04_save_memory_when_create_large_number_instances.py
 # @Software: PyCharm
 
-# 创建大量对象时节省内存方法
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p04_save_memory_when_create_large_number_instances.html
+"""创建大量对象时节省内存方法"""
 
-# 对于主要是用来当成简单的数据结构的类而言，
-# 可以通过给类添加 __slots__ 属性来极大的减少实例所占的内存
+
+# 对于主要是用来当成简单的数据结构的类而言，可以通过给类添加 __slots__ 属性来极大的减少实例所占的内存
 # 使用slots后不再为每个实例定义一个字典存储实例的属性，从而节省内存
 class Date:
     __slots__ = ['year', 'month', 'day']
