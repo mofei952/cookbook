@@ -1,4 +1,12 @@
-# 调用父类方法
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2020/4/25 17:44
+# @File    : p07_calling_method_on_parent_class.py
+# @Software: PyCharm
+
+"""调用父类方法"""
 
 
 # 使用super()函数调用父类的方法
