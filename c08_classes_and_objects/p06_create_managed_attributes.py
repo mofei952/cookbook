@@ -6,13 +6,12 @@
 # @File    : p06_create_managed_attributes.py
 # @Software: PyCharm
 
-# 创建可管理的属性
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p06_create_managed_attributes.html
+"""创建可管理的属性"""
 
-# 定义某个属性的一种简单方法是将它定义为一个property
 import math
 
 
+# 定义某个属性的一种简单方法是将它定义为一个property
 class Person:
     def __init__(self, first_name):
         self.first_name = first_name
