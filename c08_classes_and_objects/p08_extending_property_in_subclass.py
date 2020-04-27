@@ -1,5 +1,12 @@
-# 子类中扩展property
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p08_extending_property_in_subclass.html
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2020/4/25 17:44
+# @File    : p07_calling_method_on_parent_class.py
+# @Software: PyCharm
+
+"""子类中扩展property"""
 
 
 # 在子类中扩展name属性
@@ -46,9 +53,10 @@ s = SubPerson('jack')
 print(s.name)
 s.name = 'rose'
 print(s.name)
+print()
 
 
-# 仅仅扩展property的某一个方法
+# 仅仅扩展property的某一个方法，property是一个描述器
 class SubPerson(Person):
     @Person.name.setter
     def name(self, value):
