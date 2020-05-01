@@ -1,5 +1,12 @@
-# 创建新的类或实例属性
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p09_create_new_kind_of_class_or_instance_attribute.html
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2020/5/1 12:41
+# @File    : p09_create_new_kind_of_class_or_instance_attribute.py
+# @Software: PyCharm
+
+"""创建新的类或实例属性"""
 
 
 # 可以通过一个描述器类的形式来创建一个新的实例属性
@@ -63,6 +70,7 @@ def typeassert(**kwargs):
         for name, expected_type in kwargs.items():
             setattr(cls, name, Typed(name, expected_type))
         return cls
+
     return decorate
 
 
