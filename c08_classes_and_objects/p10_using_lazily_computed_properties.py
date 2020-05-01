@@ -1,5 +1,12 @@
-# 使用延迟计算属性
-#  https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p10_using_lazily_computed_properties.html
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2020/5/1 14:28
+# @File    : p10_using_lazily_computed_properties.py
+# @Software: PyCharm
+
+"""使用延迟计算属性"""
 
 import math
 
@@ -39,11 +46,13 @@ print(vars(c))
 print(c.area)
 print(vars(c))
 print(c.area)
+print()
 
 
 # 让计算后的值不能被修改的方案，和第一个方案比稍微没那么高效
 def lazyproperty(func):
     name = '_lazy_' + func.__name__
+
     @property
     def lazy(self):
         if hasattr(self, name):
@@ -52,6 +61,7 @@ def lazyproperty(func):
             value = func(self)
             setattr(self, name, value)
             return value
+
     return lazy
 
 
@@ -71,8 +81,9 @@ class Circle:
 
 
 c = Circle(4)
-print(c.area)
 # c.area = 1  # AttributeError: can't set attribute
+print(c.area)
+print()
 
 
 # 如果一个描述器仅仅只定义了一个 __get__() 方法的话，它比通常的具有更弱的绑定。
@@ -91,7 +102,7 @@ class lazyproperty:
             return value
 
     def __set__(self, instance, value):
-        pass
+        instance.__dict__[self.func.__name__] = value
 
 
 class Circle:
