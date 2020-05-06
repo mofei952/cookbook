@@ -6,7 +6,7 @@
 # @File    : p12_define_interface_or_abstract_base_class.py
 # @Software: PyCharm
 
-# 定义接口或者抽象基类
+"""定义接口或者抽象基类"""
 
 import collections
 import io

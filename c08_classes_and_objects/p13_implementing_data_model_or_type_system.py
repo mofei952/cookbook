@@ -6,8 +6,7 @@
 # @File    : p13_implementing_data_model_or_type_system.py
 # @Software: PyCharm
 
-# 实现数据模型的类型约束
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p13_implementing_data_model_or_type_system.html
+"""实现数据模型的类型约束"""
 
 
 # 使用描述器来自定义属性赋值函数
@@ -95,6 +94,7 @@ s = Stock('book', 20, 12.0)
 # s.name = 'abcdefgh' # ValueError: size must be < 8
 # s.shares = -10 # ValueError: Expected >= 0
 # s.price = 'many' # TypeError: expected <class 'float'>
+print()
 
 
 # 使用类装饰器简化上面的代码
@@ -123,6 +123,7 @@ class Stock:
 
 s = Stock('book', 20, 12.0)
 # s.name = 'abcdefgh' # ValueError: size must be < 8
+print()
 
 
 # 使用元类简化上面的代码
@@ -147,6 +148,7 @@ class Stock2(metaclass=checkedmeta):
 
 s = Stock('book', 20, 12.0)
 # s.name = 'abcdefgh' # ValueError: size must be < 8
+print()
 
 
 # 装饰器可以替代混入类，执行速度会比混入类的方式快
