@@ -1,5 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# @Author  : mofei
+# @Time    : 2020/5/6 19:57
+# @File    : p12_define_interface_or_abstract_base_class.py
+# @Software: PyCharm
+
 # 定义接口或者抽象基类
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p12_define_interface_or_abstract_base_class.html
 
 import collections
 import io
@@ -54,6 +61,16 @@ class A(metaclass=ABCMeta):
     @name.setter
     @abstractmethod
     def name(self, value):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def method1(cls):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def method2():
         pass
 
 
