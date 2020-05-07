@@ -6,15 +6,17 @@
 # @File    : p14_implementing_custom_containers.py
 # @Software: PyCharm
 
-# 实现自定义容器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p14_implementing_custom_containers.html
+"""实现自定义容器"""
 
 import bisect
 import collections
 
 
-# collections定义了很多抽象基类
-# 自定义容器时可用继承它们
+# 尝试实例化一个抽象基类，可以再错误提示中找到需要实现哪些方法
+# collections.Sequence()  # TypeError: Can't instantiate abstract class Sequence with abstract methods __getitem__, __len__
+
+
+# 自定义容器时继承collections.Sequence
 class SortedItems(collections.Sequence):
     def __init__(self, initial=None):
         if initial is not None and not isinstance(initial, collections.Sequence):
@@ -37,6 +39,7 @@ print(list(items))
 print(items[0])
 items.add(2)
 print(list(items))
+print()
 
 # 使用 collections 中的抽象基类可以确保你自定义的容器实现了所有必要的方法。并且还能简化类型检查。
 print(isinstance(items, collections.Iterable))
@@ -44,6 +47,7 @@ print(isinstance(items, collections.Sequence))
 print(isinstance(items, collections.Container))
 print(isinstance(items, collections.Sized))
 print(isinstance(items, collections.Mapping))
+print()
 
 
 # collections中很多抽象类会为一些常见容器操作提供默认的实现
@@ -74,7 +78,7 @@ class Items(collections.MutableSequence):
         return len(self._items)
 
 
-# Items支持几乎所有的核心列表方法
+# Items的实例支持了几乎所有的核心列表方法
 a = Items([1, 2, 3])
 print(len(a))
 a.append(4)
