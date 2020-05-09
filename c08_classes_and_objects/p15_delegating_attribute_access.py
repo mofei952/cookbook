@@ -6,16 +6,16 @@
 # @File    : p15_delegating_attribute_access.py
 # @Software: PyCharm
 
-# 属性的代理访问
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p15_delegating_attribute_access.html
+"""属性的代理访问"""
+
 
 # 代理是一种编程模式，它将某个操作转移给另外一个对象来实现
 class A:
     def spam(self, x):
-        pass
+        print(self, 'spam', x)
 
     def foo(self):
-        pass
+        print(self, 'foo')
 
 
 class B1:
@@ -33,7 +33,7 @@ class B1:
         return self._a.foo()
 
     def bar(self):
-        pass
+        print(self, 'bar')
 
 
 # 如果有大量的方法需要代理， 那么使用 __getattr__() 方法或许或更好些
@@ -44,7 +44,7 @@ class B2:
         self._a = A()
 
     def bar(self):
-        pass
+        print(self, 'bar')
 
     # Expose all of the methods defined on class A
     def __getattr__(self, name):
@@ -52,6 +52,12 @@ class B2:
         the __getattr__() method is actually a fallback method
         that only gets called when an attribute is not found"""
         return getattr(self._a, name)
+
+
+b = B2()
+b.bar()
+b.spam(42)
+print()
 
 
 # 另外一个代理例子是实现代理模式
@@ -115,6 +121,31 @@ a.insert(0, 1)
 a.sort()
 # len(a) # TypeError: object of type 'ListLike' has no len()
 # a[0] # TypeError: 'ListLike' object does not support indexing
+print()
+
+
+# 为了让它支持这些方法，必须手动的实现这些方法代理
+class ListLike:
+    """__getattr__对于双下划线开始和结尾的方法是不能用的，需要一个个去重定义"""
+
+    def __init__(self):
+        self._items = []
+
+    def __getattr__(self, name):
+        return getattr(self._items, name)
+
+    # Added special methods to support certain list operations
+    def __len__(self):
+        return len(self._items)
+
+    def __getitem__(self, index):
+        return self._items[index]
+
+    def __setitem__(self, index, value):
+        self._items[index] = value
+
+    def __delitem__(self, index):
+        del self._items[index]
 
 
 # 代理类有时候可以作为继承的替代方案
