@@ -6,8 +6,7 @@
 # @File    : p16_define_more_than_one_constructor_in_class.py
 # @Software: PyCharm
 
-# 在类中定义多个构造器
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p16_define_more_than_one_constructor_in_class.html
+"""在类中定义多个构造器"""
 
 import time
 
@@ -25,7 +24,7 @@ class Date:
         return cls(t.tm_year, t.tm_mon, t.tm_mday)
 
     def __str__(self):
-        return '{:04d}-{:02d}-{:02d}'.format(self.year, self.month, self.day)
+        return '{} {:04d}-{:02d}-{:02d}'.format(self.__class__, self.year, self.month, self.day)
         # return "%04d-%02d-%02d" % (self.year, self.month, self.day)
 
 
@@ -36,7 +35,7 @@ print(b)
 
 
 # 类方法接受一个class对象作为第一个参数
-# 在继承时也可以很好的工作
+# 这个类被用来创建并返回最终的实例，这样在继承时也可以很好的工作
 class NewDate(Date):
     pass
 
