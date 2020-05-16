@@ -6,8 +6,7 @@
 # @File    : p18_extending_classes_with_mixins.py
 # @Software: PyCharm
 
-# 利用Mixins扩展类功能
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p18_extending_classes_with_mixins.html
+"""利用Mixins扩展类功能"""
 
 from collections import defaultdict
 
@@ -66,6 +65,7 @@ d = LoggedDict()
 d['x'] = 23
 print(d['x'])
 del d['x']
+print()
 
 
 class SetOneDefaultDict(SetOnceMappingMixin, defaultdict):
@@ -75,4 +75,40 @@ class SetOneDefaultDict(SetOnceMappingMixin, defaultdict):
 d = SetOneDefaultDict(list)
 d['x'].append(2)
 d['x'].append(3)
-# d['x']=23 # KeyError: 'x already set'
+# d['x'] = 23  # KeyError: 'x already set'
+print()
+
+
+# 还有一种实现混入类的方式就是使用类装饰器
+def LoggedMapping(cls):
+    cls_getitem = cls.__getitem__
+    cls_setitem = cls.__setitem__
+    cls_delitem = cls.__delitem__
+
+    def __getitem__(self, key):
+        print('Getting ' + str(key))
+        return cls_getitem(self, key)
+
+    def __setitem__(self, key, value):
+        print('Setting {} = {!r}'.format(key, value))
+        return cls_setitem(self, key, value)
+
+    def __delitem__(self, key):
+        print('Deleting ' + str(key))
+        return cls_delitem(self, key)
+
+    cls.__getitem__ = __getitem__
+    cls.__setitem__ = __setitem__
+    cls.__delitem__ = __delitem__
+    return cls
+
+
+@LoggedMapping
+class LoggedDict(dict):
+    pass
+
+
+d = LoggedDict()
+d['x'] = 23
+print(d['x'])
+del d['x']
