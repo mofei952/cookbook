@@ -6,11 +6,14 @@
 # @File    : p19_implements_stateful_objects_or_state_machines.py
 # @Software: PyCharm
 
-# 实现状态对象或者状态机
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p19_implements_stateful_objects_or_state_machines.html
+"""实现状态对象或者状态机"""
 
-# 普通方案，代码复杂，而且效率低下
+from abc import ABCMeta, abstractmethod
+
+
+# 在很多程序中，有些对象会根据状态的不同来执行不同的操作
 class Connection:
+    """普通方案，好多个判断语句，效率低下"""
 
     def __init__(self):
         self.state = 'CLOSED'
@@ -37,7 +40,6 @@ class Connection:
 
 
 # 更好的办法是为每个状态定义一个对象
-
 class Connection1:
     def __init__(self):
         self.new_state(ClosedConnectionState)
@@ -58,22 +60,26 @@ class Connection1:
         return self._state.close(self)
 
 
-class ConnectionState:
+class ConnectionState(metaclass=ABCMeta):
     @staticmethod
+    @abstractmethod
     def read(conn):
-        raise NotImplementedError()
+        pass
 
     @staticmethod
+    @abstractmethod
     def write(conn, data):
-        raise NotImplementedError()
+        pass
 
     @staticmethod
+    @abstractmethod
     def open(conn):
-        raise NotImplementedError()
+        pass
 
     @staticmethod
+    @abstractmethod
     def close(conn):
-        raise NotImplementedError()
+        pass
 
 
 class ClosedConnectionState(ConnectionState):
@@ -115,11 +121,12 @@ class OpenConnectionState(ConnectionState):
 c = Connection1()
 print(c._state)
 # c.read() # RuntimeError: Not open
-
 c.open()
 print(c._state)
 c.read()
 c.write('aa')
-
 c.close()
 print(c._state)
+
+# 如果代码中出现太多的条件判断语句的话，代码就会变得难以维护和阅读。
+# 这里的解决方案是将每个状态抽取出来定义成一个类。
