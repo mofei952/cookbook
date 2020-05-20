@@ -6,8 +6,7 @@
 # @File    : p20_call_method_on_object_by_string_name.py
 # @Software: PyCharm
 
-# 通过字符串调用对象方法
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p20_call_method_on_object_by_string_name.html
+"""通过字符串调用对象方法"""
 
 import math
 import operator
@@ -45,4 +44,3 @@ points = [
 ]
 points.sort(key=operator.methodcaller('distance', 0, 0))
 print(points)
-
