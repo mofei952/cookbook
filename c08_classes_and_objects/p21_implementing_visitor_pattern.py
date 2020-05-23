@@ -6,8 +6,7 @@
 # @File    : p21_implementing_visitor_pattern.py
 # @Software: PyCharm
 
-# 实现访问者模式
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p21_implementing_visitor_pattern.html
+"""实现访问者模式"""
 
 
 # 实现数学表达式程序并计算结果
@@ -133,3 +132,20 @@ class StackCode(NodeVisitor):
 s = StackCode()
 res = s.generate_code(t4)
 print(res)
+
+
+# 访问者模式也是实现其他语言switch或case语句的方式
+# 比如要实现一个HTTP框架
+class HTTPHandler:
+    def handle(self, request):
+        methname = 'do_' + request.request_method
+        return getattr(self, methname)(request)
+
+    def do_GET(self, request):
+        pass
+
+    def do_POST(self, request):
+        pass
+
+    def do_HEAD(self, request):
+        pass
