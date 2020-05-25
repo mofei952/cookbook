@@ -6,8 +6,7 @@
 # @File    : p22_implementing_visitor_pattern_without_recursion.py
 # @Software: PyCharm
 
-# 不用递归实现访问者模式
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p22_implementing_visitor_pattern_without_recursion.html
+"""不用递归实现访问者模式"""
 
 import types
 
@@ -16,11 +15,13 @@ class Node:
     pass
 
 
+# 通过巧妙的使用生成器可以在树遍历或搜索算法中消除递归
 class NodeVisitor:
     def visit(self, node):
         stack = [node]
         last_result = None
         while stack:
+            print(stack)
             try:
                 last = stack[-1]
                 if isinstance(last, types.GeneratorType):
@@ -82,7 +83,37 @@ class Number(Node):
         self.value = value
 
 
-# A sample visitor class that evaluates expressions
+class Evaluator(NodeVisitor):
+    def visit_Number(self, node):
+        return node.value
+
+    def visit_Add(self, node):
+        return self.visit(node.left) + self.visit(node.right)
+
+    def visit_Sub(self, node):
+        return self.visit(node.left) - self.visit(node.right)
+
+    def visit_Mul(self, node):
+        return self.visit(node.left) * self.visit(node.right)
+
+    def visit_Div(self, node):
+        return self.visit(node.left) / self.visit(node.right)
+
+    def visit_Negate(self, node):
+        return -self.visit(node.operand)
+
+
+# 1 + 2*(3-4) / 5
+t1 = Sub(Number(3), Number(4))
+t2 = Mul(Number(2), t1)
+t3 = Div(t2, Number(5))
+t4 = Add(Number(1), t3)
+# Evaluate it
+e = Evaluator()
+print(e.visit(t4))  # Outputs 0.6
+print()
+
+
 class Evaluator(NodeVisitor):
     def visit_Number(self, node):
         return node.value
@@ -103,9 +134,9 @@ class Evaluator(NodeVisitor):
         yield - (yield node.operand)
 
 
-if __name__ == '__main__':
-    a = Number(0)
-    for n in range(1, 1000):
-        a = Add(a, Number(n))
-    e = Evaluator()
-    print(e.visit(a))
+a = Number(0)
+# for n in range(1, 100000):
+for n in range(1, 3):
+    a = Add(a, Number(n))
+e = Evaluator()
+print(e.visit(a))
