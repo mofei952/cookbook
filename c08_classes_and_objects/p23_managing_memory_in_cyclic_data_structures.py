@@ -6,8 +6,7 @@
 # @File    : p23_managing_memory_in_cyclic_data_structures.py
 # @Software: PyCharm
 
-# 循环引用数据结构的内存管理
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p23_managing_memory_in_cyclic_data_structures.html
+"""循环引用数据结构的内存管理"""
 
 import weakref
 
