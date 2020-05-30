@@ -6,12 +6,13 @@
 # @File    : p24_making_classes_support_comparison_operations.py
 # @Software: PyCharm
 
-# 让类支持比较操作
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p24_making_classes_support_comparison_operations.html
+"""让类支持比较操作"""
 
 from functools import total_ordering
 
 
+# 如果要实现所有的比较方法会比较麻烦，装饰器 functools.total_ordering 可以简化这个处理的
+# 只需定义一个 __eq__() 方法， 外加其他方法(__lt__, __le__, __gt__, __ge__)中的一个，然后total_ordering装饰器会自动为你填充其它比较方法
 class Room:
     def __init__(self, name, length, width):
         self.name = name
@@ -19,8 +20,7 @@ class Room:
         self.width = width
         self.square_feet = self.length * self.width
 
-# 只需定义一个 __eq__() 方法， 外加其他方法(__lt__, __le__, __gt__, __ge__)中的一个即可。
-# 然后total_ordering装饰器会自动为你填充其它比较方法
+
 @total_ordering
 class House:
     def __init__(self, name, style):
@@ -61,6 +61,8 @@ h3.add_room(Room('Master Bedroom', 14, 21))
 h3.add_room(Room('Living Room', 18, 20))
 h3.add_room(Room('Office', 12, 16))
 h3.add_room(Room('Kitchen', 15, 17))
+
+print(h1.living_space_footage, h2.living_space_footage, h3.living_space_footage)
 
 print(h1 < h2)
 print(h1 > h2)
