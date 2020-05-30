@@ -62,11 +62,15 @@ h3.add_room(Room('Living Room', 18, 20))
 h3.add_room(Room('Office', 12, 16))
 h3.add_room(Room('Kitchen', 15, 17))
 
-print(h1.living_space_footage, h2.living_space_footage, h3.living_space_footage)
+print(h1)
+print(h2)
+print(h3)
+print()
 
 print(h1 < h2)
 print(h1 > h2)
 print(h1 >= h2)
+print()
 
 houses = [h1, h2, h3]
 print(max(houses))
