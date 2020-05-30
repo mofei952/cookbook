@@ -35,6 +35,7 @@ del a  # Immediately deleted
 a = Node()
 a.add_child(Node())
 del a  # Not deleted
+print()
 
 
 # 使用弱引用可以消除循环引用的问题
@@ -65,6 +66,7 @@ class Node:
 a = Node(1)
 a.add_child(Node(2))
 del a  # Immediately deleted
+print()
 
 root = Node('parent')
 c1 = Node('child')
@@ -72,3 +74,4 @@ root.add_child(c1)
 print(c1.parent)
 del root
 print(c1.parent)
+print()
