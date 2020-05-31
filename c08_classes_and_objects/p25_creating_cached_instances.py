@@ -6,8 +6,7 @@
 # @File    : p25_creating_cached_instances.py
 # @Software: PyCharm
 
-# 创建缓存实例
-# https://python3-cookbook.readthedocs.io/zh_CN/latest/c08/p25_creating_cached_instances.html
+"""创建缓存实例"""
 
 import logging
 import weakref
@@ -18,6 +17,7 @@ b = logging.getLogger('bar')
 print(a is b)
 c = logging.getLogger('foo')
 print(a is c)
+print()
 
 
 # 使用一个工厂函数实现这种效果
@@ -41,6 +41,8 @@ def get_spam(name):
 a = get_spam('ff')
 b = get_spam('ff')
 print(a is b)
+print()
+
 
 # WeakValueDictionary只会保存那些在其它地方还在被使用的实例
 # 只要实例不再被使用了，它就从字典中被移除了
@@ -54,6 +56,7 @@ del c
 print(list(_spam_cache))
 del b
 print(list(_spam_cache))
+print()
 
 
 # 使用单独的缓存管理器
@@ -86,6 +89,7 @@ class Spam:
 a = Spam.get_spam('foo')
 b = Spam.get_spam('foo')
 print(a is b)
+print()
 
 
 # 防止直接实例化对象
@@ -107,6 +111,7 @@ class CachedSpamManager:
 
 class Spam:
     manager = CachedSpamManager()
+
     def __init__(self, *args, **kwargs):
         raise RuntimeError("Can't instantiate directly")
 
@@ -119,6 +124,7 @@ class Spam:
 
     def get_spam(name):
         return Spam.manager.get_spam(name)
+
 
 a = Spam.get_spam('foo')
 b = Spam.get_spam('foo')
