@@ -43,7 +43,6 @@ b = get_spam('ff')
 print(a is b)
 print()
 
-
 # WeakValueDictionary只会保存那些在其它地方还在被使用的实例
 # 只要实例不再被使用了，它就从字典中被移除了
 a = get_spam('foo')

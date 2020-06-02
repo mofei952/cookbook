@@ -6,7 +6,7 @@
 # @File    : p01_put_wrapper_around_function.py
 # @Software: PyCharm
 
-# 在函数上添加包装器
+"""在函数上添加包装器"""
 
 import time
 from functools import wraps
@@ -37,10 +37,10 @@ def countdown(n):
 countdown(10000)
 countdown(100000)
 countdown(1000000)
+print()
 
 
 # 一个装饰器就是一个函数，它接受一个函数作为参数并返回一个新的函数。
-
 # @timethis和以下写法是等价的
 def countdown(n):
     while n > 0:
