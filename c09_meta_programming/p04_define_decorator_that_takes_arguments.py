@@ -6,7 +6,7 @@
 # @File    : p04_define_decorator_that_takes_arguments.py
 # @Software: PyCharm
 
-# 定义一个带参数的装饰器
+"""定义一个带参数的装饰器"""
 
 import logging
 

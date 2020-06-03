@@ -6,7 +6,7 @@
 # @File    : p03_unwrapping_decorator.py
 # @Software: PyCharm
 
-# 解除一个装饰器
+"""解除一个装饰器"""
 
 import time
 from functools import wraps
@@ -14,9 +14,7 @@ from functools import wraps
 
 # 假设装饰器是通过@wraps来实现的，那么可以通过访问__wrapped__属性来访问原始函数
 def timethis(func):
-    '''
-    Decorator that reports the execution time.
-    '''
+    """Decorator that reports the execution time."""
 
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -37,6 +35,7 @@ def foo():
 foo()
 origin_foo = foo.__wrapped__
 origin_foo()
+print()
 
 
 # 直接访问未包装的原始函数在调试、内省和其他函数操作时是很有用的。
