@@ -9,6 +9,7 @@
 """定义一个带参数的装饰器"""
 
 import logging
+from functools import wraps
 
 
 def logged(level, name=None, message=None):
@@ -17,6 +18,7 @@ def logged(level, name=None, message=None):
         log = logging.getLogger(logname)
         logmsg = message if message else func.__name__
 
+        @wraps(func)
         def wrapper(*args, **kwargs):
             log.log(level, logmsg)
             return func(*args, **kwargs)
@@ -30,9 +32,9 @@ def logged(level, name=None, message=None):
 def add(x, y):
     return x + y
 
-
 # 装饰器处理过程和以下语句是等效的
 # add = logged(logging.DEBUG)(add)
+
 
 @logged(logging.CRITICAL, 'example')
 def spam():
