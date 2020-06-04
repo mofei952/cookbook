@@ -43,6 +43,7 @@ b = get_spam('ff')
 print(a is b)
 print()
 
+
 # WeakValueDictionary只会保存那些在其它地方还在被使用的实例
 # 只要实例不再被使用了，它就从字典中被移除了
 a = get_spam('foo')
@@ -75,18 +76,18 @@ class CachedSpamManager:
         self._cache.clear()
 
 
-class Spam:
+class Spam2:
     manager = CachedSpamManager()
 
     def __init__(self, name):
         self.name = name
 
     def get_spam(name):
-        return Spam.manager.get_spam(name)
+        return Spam2.manager.get_spam(name)
 
 
-a = Spam.get_spam('foo')
-b = Spam.get_spam('foo')
+a = Spam2.get_spam('foo')
+b = Spam2.get_spam('foo')
 print(a is b)
 print()
 
@@ -98,7 +99,7 @@ class CachedSpamManager:
 
     def get_spam(self, name):
         if name not in self._cache:
-            temp = Spam._new(name)  # Modified creation
+            temp = Spam3._new(name)  # Modified creation
             self._cache[name] = temp
         else:
             temp = self._cache[name]
@@ -108,7 +109,7 @@ class CachedSpamManager:
         self._cache.clear()
 
 
-class Spam:
+class Spam3:
     manager = CachedSpamManager()
 
     def __init__(self, *args, **kwargs):
@@ -122,9 +123,9 @@ class Spam:
         return self
 
     def get_spam(name):
-        return Spam.manager.get_spam(name)
+        return Spam3.manager.get_spam(name)
 
 
-a = Spam.get_spam('foo')
-b = Spam.get_spam('foo')
+a = Spam3.get_spam('foo')
+b = Spam3.get_spam('foo')
 print(a is b)
