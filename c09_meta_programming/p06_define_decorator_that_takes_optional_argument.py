@@ -6,14 +6,13 @@
 # @File    : p06_define_decorator_that_takes_optional_argument.py
 # @Software: PyCharm
 
-# 带可选参数的装饰器
+"""带可选参数的装饰器"""
 
 import logging
 from functools import partial, wraps
 
 
-# 要实现一个装饰器既可以不传参数，比如@decorator
-# 又可以传递可选参数，比如@decorator(x, y, z)
+# 要实现一个装饰器既可以不传参数，比如@decorator，又可以传递可选参数，比如@decorator(x, y, z)
 def logged(func=None, *, level=logging.DEBUG, name=None, message=None):
     if func is None:
         return partial(logged, level=level, name=name, message=message)
@@ -35,7 +34,7 @@ def foo():
     print('foo')
 
 
-@logged(level=logging.CRITICAL, name='test')
+@logged(level=logging.CRITICAL, name='test', message='messagetest')
 def spam():
     print('spam')
 
