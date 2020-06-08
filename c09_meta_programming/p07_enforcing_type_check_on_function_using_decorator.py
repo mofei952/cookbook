@@ -6,7 +6,7 @@
 # @File    : p07_enforcing_type_check_on_function_using_decorator.py
 # @Software: PyCharm
 
-# 利用装饰器强制函数上的类型检查
+"""利用装饰器强制函数上的类型检查"""
 
 from inspect import signature
 from functools import wraps
@@ -38,13 +38,21 @@ def typeassert(*ty_args, **ty_kwargs):
 
 
 # 可以指定所有参数类型，也可以指定部分
-@typeassert(int)
+@typeassert(int, int)
 def spam(x, y):
     print(x + y)
 
 
 spam(1, 2)
 # spam(2.5, 2.5) # TypeError: Argument x must be <class 'int'>
+
+
+@typeassert(int)
+def spam(x, y):
+    print(x + y)
+
+
+spam(1, 2)
 
 
 # 这个方案对于参数的默认值并不会进行检查
