@@ -6,7 +6,7 @@
 # @File    : p08_define_decorators_as_part_of_class.py
 # @Software: PyCharm
 
-# 将装饰器定义为类的一部分
+"""将装饰器定义为类的一部分"""
 
 from functools import wraps
 
@@ -22,7 +22,7 @@ class A:
         return wrapper
 
     @classmethod
-    def decorator2(self, func):
+    def decorator2(cls, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             print('decorator 2')
@@ -32,6 +32,8 @@ class A:
 
 
 a = A()
+
+
 @a.decorator1
 def spam():
     pass
