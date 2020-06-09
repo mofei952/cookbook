@@ -6,7 +6,7 @@
 # @File    : p09_define_decorators_as_classes.py
 # @Software: PyCharm
 
-# 将装饰器定义为类
+"""将装饰器定义为类"""
 
 import types
 from functools import wraps
@@ -43,12 +43,14 @@ class Spam:
 add(2, 3)
 add(3, 4)
 print(add.ncalls)
+print()
 
 s = Spam()
 s.bar(1)
 s.bar(2)
 s.bar(3)
 print(Spam.bar.ncalls)
+print()
 
 
 # 这个功能也可以使用闭包和nonlocal变量来实现
@@ -57,10 +59,11 @@ def profiled(func):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-        wrapper.ncalls += 1
+        nonlocal ncalls
+        ncalls += 1
         return func(*args, **kwargs)
 
-    wrapper.ncalls = ncalls
+    wrapper.ncalls = lambda: ncalls
     return wrapper
 
 
@@ -71,4 +74,4 @@ def add(x, y):
 
 add(2, 3)
 add(2, 3)
-print(add.ncalls)
+print(add.ncalls())
