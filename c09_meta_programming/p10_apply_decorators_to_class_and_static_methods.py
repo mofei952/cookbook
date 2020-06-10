@@ -6,7 +6,7 @@
 # @File    : p10_apply_decorators_to_class_and_static_methods.py
 # @Software: PyCharm
 
-# 为类和静态方法提供装饰器
+"""为类和静态方法提供装饰器"""
 
 import time
 from functools import wraps
@@ -54,7 +54,7 @@ Spam.class_method(10000)
 Spam.static_method(10000)
 
 
-# 在抽象基类中定义类方法和静态方法
+# 在抽象基类中定义类方法和静态方法，同样要确保 @classmethod 或 @staticmethod 的位置，否则会报错
 class A(metaclass=ABCMeta):
     @classmethod
     @abstractmethod
