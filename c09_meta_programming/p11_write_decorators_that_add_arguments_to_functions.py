@@ -6,13 +6,13 @@
 # @File    : p11_write_decorators_that_add_arguments_to_functions.py
 # @Software: PyCharm
 
-# 装饰器为被包装函数增加参数
+"""装饰器为被包装函数增加参数"""
 
 import inspect
 from functools import wraps
 
 
-# 在装饰器中可以使用关键字参数给被包装函数增加额外的参数，但是不能影响这个函数现有的调用规则
+# 在装饰器中可以使用关键字参数给被包装函数增加额外的参数
 def optional_debug(func):
     @wraps(func)
     def wrapper(*args, debug=False, **kwargs):
@@ -30,10 +30,10 @@ def spam(a, b, c):
 
 spam(1, 2, 3)
 spam(1, 2, 3, debug=True)
+print()
 
 
-# 被包装函数参数可能已有debug参数，可能会导致名字冲突
-# 这里增加一步关键字的名字检查
+# 被包装函数参数可能已有debug参数，可能会导致名字冲突，这里增加一步关键字的名字检查
 def optional_debug(func):
     if 'debug' in inspect.signature(func).parameters:
         raise TypeError('debug argument already defined')
@@ -69,7 +69,8 @@ def optional_debug(func):
 
     sig = inspect.signature(func)
     params = list(sig.parameters.values())
-    params.append(inspect.Parameter('debug', inspect.Parameter.KEYWORD_ONLY, default=False))
+    params.append(inspect.Parameter(
+        'debug', inspect.Parameter.KEYWORD_ONLY, default=False))
     wrapper.__signature__ = sig.replace(parameters=params)
     return wrapper
 
