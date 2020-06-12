@@ -47,7 +47,7 @@ def optional_debug(func):
     return wrapper
 
 
-# 包装后的函数签名其实是错误的
+# 包装后的函数签名其实是错误的，可以修改包装后的函数签名来正确显示
 @optional_debug
 def spam(a, b, c):
     print(a, b, c)
@@ -56,7 +56,6 @@ def spam(a, b, c):
 print(inspect.signature(spam))
 
 
-# 修改包装后的函数签名，这样就可以显示debug参数了
 def optional_debug(func):
     if 'debug' in inspect.signature(func).parameters:
         raise TypeError('debug argument already defined')
