@@ -6,12 +6,12 @@
 # @File    : p13_using_mataclass_to_control_instance_creation.py
 # @Software: PyCharm
 
-# 使用元类控制实例的创建
+"""使用元类控制实例的创建"""
 
-# 使用元类定义一个不能直接实例化的类
 import weakref
 
 
+# 使用元类定义一个不能直接实例化的类
 class NoInstance(type):
     def __call__(self, *args, **kwargs):
         raise TypeError("Can't instantiate directly")
@@ -40,14 +40,15 @@ class Singleton(type):
             return self.__instance
 
 
-class Spam(metaclass=Singleton):
+class Spam2(metaclass=Singleton):
     def __init__(self):
         print('Creating Spam')
 
 
-a = Spam()
-b = Spam()
+a = Spam2()
+b = Spam2()
 print(b is a)
+print()
 
 
 # 使用元类创建缓存实例
@@ -65,13 +66,13 @@ class Cached(type):
             return obj
 
 
-class Spam(metaclass=Cached):
+class Spam3(metaclass=Cached):
     def __init__(self, name):
         print('Creating Spam({!r})'.format(name))
         self.name = name
 
 
-a = Spam('1')
-b = Spam('2')
-c = Spam('1')
+a = Spam3('1')
+b = Spam3('2')
+c = Spam3('1')
 print(c is a)
