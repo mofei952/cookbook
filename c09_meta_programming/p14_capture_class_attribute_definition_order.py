@@ -6,7 +6,7 @@
 # @File    : p14_capture_class_attribute_definition_order.py
 # @Software: PyCharm
 
-# 捕获类的属性定义顺序
+"""捕获类的属性定义顺序"""
 
 from collections import OrderedDict
 
@@ -71,6 +71,7 @@ class Stock(Structure):
 s = Stock('gg', 1, 1.2)
 print(s.name)
 print(s.as_csv())
+print()
 
 
 # 防止重复属性定义
@@ -88,7 +89,12 @@ class NoDupOrderedDict(OrderedDict):
 class OrderedMeta(type):
     def __new__(cls, clsname, bases, clsdict):
         d = dict(clsdict)
-        d['_order'] = [name for name in clsdict if name[0] != '_']
+        order = []
+        for name, value in clsdict.items():
+            if isinstance(value, Typed):
+                value._name = name
+                order.append(name)
+        d['_order'] = order
         return type.__new__(cls, clsname, bases, d)
 
     @classmethod
@@ -103,4 +109,5 @@ class A(metaclass=OrderedMeta):
 
 
 a = A()
+a.b = 1
 print(a._order)
