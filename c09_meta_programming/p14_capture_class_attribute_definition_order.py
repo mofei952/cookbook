@@ -98,7 +98,7 @@ class OrderedMeta(type):
         return type.__new__(cls, clsname, bases, d)
 
     @classmethod
-    def __prepare__(mcs, clsname, bases):
+    def __prepare__(cls, clsname, bases):
         return NoDupOrderedDict(clsname)
 
 
