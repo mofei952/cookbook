@@ -1,7 +1,7 @@
 """*args和**kwargs的强制参数签名"""
 
 import inspect
-from inspect import Signature, Parameter
+from inspect import Parameter, Signature
 
 
 # 有一个函数或方法，它使用*args和**kwargs作为参数，这样使得它比较通用。
