@@ -1,15 +1,15 @@
 """定义有可选参数的元类"""
 
-from abc import ABCMeta, abstractclassmethod
+from abc import ABCMeta, abstractmethod
 
 
 # 在定义类的时候，可以使用`metaclass`关键字参数来指定特定的元类
 class IStream(metaclass=ABCMeta):
-    @abstractclassmethod
+    @abstractmethod
     def read(self, maxsize=None):
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def write(self, data):
         pass
 
