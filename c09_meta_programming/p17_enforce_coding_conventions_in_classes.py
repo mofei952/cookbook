@@ -56,7 +56,6 @@ class A(Root):
 class MatchSignaturesMeta(type):
     def __init__(self, clsname, bases, clsdict):
         super().__init__(clsname, bases, clsdict)
-        print(self)
         sup = super(self, self)
         for name, value in clsdict.items():
             if name.startswith('_') or not callable(value):
