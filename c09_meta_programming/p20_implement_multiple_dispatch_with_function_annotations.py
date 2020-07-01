@@ -21,7 +21,7 @@ s.bar('hello')
 print()
 
 
-# 利用元类和函数注解来实现重载
+# 利用函数注解来实现方法重载，并且使用到了元类和描述器
 class MultiMethod:
     '''Represents a single multimethod'''
 
@@ -38,9 +38,12 @@ class MultiMethod:
                 continue
             if parm.annotation is inspect.Parameter.empty:
                 raise TypeError(
-                    f'Argument {name} must be annotated with a type')
+                    f'Argument {name} must be annotated with a type'
+                )
             if not isinstance(parm.annotation, type):
-                raise TypeError(f'Argument {name} annotation must be a type')
+                raise TypeError(
+                    f'Argument {name} annotation must be a type'
+                )
             if parm.default is not inspect.Parameter.empty:
                 self._methods[tuple(types)] = meth
             types.append(parm.annotation)
@@ -136,11 +139,11 @@ b(2, 3)
 b('hello')
 print()
 
-# 这种实现方法还有一些限制，其中过一个是它不能使用关键字参数
+# 这种实现方法还有一些限制，其中一个是它不能使用关键字参数
 # s.bar(x=2, y=3)  # TypeError: __call__() got an unexpected keyword argument 'x'
 
 
-# 对于继承也有限制，参数的类型必须严格匹配
+# 对于继承也有限制，参数注解类型必须和实参类型严格匹配
 class A:
     pass
 
