@@ -3,7 +3,7 @@ from functools import partial
 """避免重复的属性方法"""
 
 
-# 使用property管理来属性可能会产生了一些重复代码
+# 使用property来管理属性可能会产生一些重复代码
 class Person:
     def __init__(self, name, age):
         self.name = name
