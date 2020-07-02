@@ -70,3 +70,27 @@ with timethis('counting') as a:
     n = 10000000
     while n > 0:
         n -= 1
+
+
+# 更加高级一点的上下文管理器，实现了列表对象上的某种事务，对列表的修改只有当不出现异常时才会生效
+@contextmanager
+def list_tracnsaction(orig_list):
+    working = list(orig_list)
+    yield working
+    orig_list[:] = working
+
+
+items = [1, 2, 3]
+with list_tracnsaction(items) as working:
+    working.append(4)
+    working.append(5)
+print(items)
+
+try:
+    with list_tracnsaction(items) as working:
+        working.append(6)
+        working.append(7)
+        raise RuntimeError('fail')
+except Exception as e:
+    print(e)
+print(items)
