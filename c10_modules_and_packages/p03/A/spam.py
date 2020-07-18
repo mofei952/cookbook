@@ -6,8 +6,17 @@
 # @File    : spam.py
 # @Software: PyCharm
 
+import sys
+print(sys.path)
+# 相对导入
 from . import grok
 from ..B import bar
 
 print(grok)
 print(bar)
+
+# 绝对导入
+from p03.A import grok
+
+print(grok)
+
