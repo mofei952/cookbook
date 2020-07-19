@@ -9,6 +9,8 @@
 # from .a import A
 # from .b import B
 
+
+# 延迟导入
 def A():
     from .a import A
     return A()

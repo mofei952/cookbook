@@ -6,6 +6,9 @@
 # @File    : b.py
 # @Software: PyCharm
 
-class B:
+from .a import A
+
+
+class B(A):
     def bar(self):
         print('B.bar')
