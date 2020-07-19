@@ -10,7 +10,7 @@
 
 # from module import * 默认会导入所有不以下划线开头的
 # 如果定义了 __all__ , 那么只有被列举出的东西会被导入
-from c10_modules_and_packages.p02.test import *
+from p02.test import *
 
 print(spam)
 print(grok)
