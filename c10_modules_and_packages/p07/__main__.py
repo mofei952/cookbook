@@ -1,0 +1,4 @@
+import spam
+
+
+spam.bar()
