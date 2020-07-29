@@ -9,5 +9,4 @@ mod = importlib.import_module('urllib.request')
 u = mod.urlopen('http://www.python.org')
 
 # import_module()也可用于相对导入
-b = importlib.import_module('.p10', __package__)
-print(b)
+from p10 import spam
