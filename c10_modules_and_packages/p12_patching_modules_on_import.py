@@ -18,7 +18,6 @@ class PostImportFinder:
     def find_module(self, fullname, path=None):
         if fullname in self._skip:
             return None
-        print('11', fullname)
         self._skip.add(fullname)
         return PostImportLoader(self)
 
@@ -72,5 +71,11 @@ def add_logging(mod):
     mod.sin = logged(mod.sin)
 
 
+import math
+print(math.sin(1))
+
+
+# 从sys.modules中删除模块再重新导入，处理器会再一次触发
+sys.modules.pop('math')
 import math
 print(math.sin(1))
