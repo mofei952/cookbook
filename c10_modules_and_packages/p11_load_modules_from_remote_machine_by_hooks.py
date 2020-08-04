@@ -117,7 +117,6 @@ class UrlModuleLoader(importlib.abc.SourceLoader):
         mod.__file__ = self.get_filename(fullname)
         mod.__loader__ = self
         mod.__package__ = fullname.rpartition('.')[0]
-        log.debug('test %s', mod.__name__)
         exec(code, mod.__dict__)
         return mod
 
@@ -176,11 +175,87 @@ def remove_meta(address):
         log.debug('%r removed from sys.meta_path', finder)
 
 
-install_meta('http://localhost:15000')
+# install_meta('http://localhost:15000')
+# import fib
+# print(fib)
+# print(fib.fib(1))
+# import spam
+# import grok.blah
+# print(grok.blah)
+# print(grok.blah.__file__)
+
+
+# 自定义导入的第二种方法是编写一个钩子直接嵌入到sys.path变量中去
+class UrlPathFinder(importlib.abc.PathEntryFinder):
+    def __init__(self, baseurl):
+        self._links = None
+        self._loader = UrlModuleLoader(baseurl)
+        self._baseurl = baseurl
+
+    def find_loader(self, fullname):
+        log.debug('find_loader: %r', fullname)
+        parts = fullname.split('.')
+        basename = parts[-1]
+
+        if self._links is None:
+            self._links = []
+            self._links = _get_links(self._baseurl)
+
+        if basename in self._links:
+            log.debug('find_loader: trying package %r', fullname)
+            fullurl = self._baseurl + '/' + basename
+            loader = UrlPackageLoader(fullurl)
+            try:
+                loader.load_module(fullname)
+                log.debug('find_loader: package %r loaded', fullname)
+            except ImportError as e:
+                log.debug('find_loader: %r is a namspace package', fullname)
+                loader = None
+            return (loader, [fullurl])
+
+        filename = basename + '.py'
+        if filename in self._links:
+            log.debug('find_loader: module %r found', fullname)
+            return (self._loader, [])
+        else:
+            log.debug('find_loader: module %r not found', fullname)
+            return (None, [])
+
+
+_url_path_cache = {}
+
+
+def handle_url(path):
+    if path.startswith(('http://', 'https://')):
+        log.debug('Handle path? %s. [Yes]', path)
+        if path in _url_path_cache:
+            finder = _url_path_cache[path]
+        else:
+            finder = UrlPathFinder(path)
+            _url_path_cache[path] = finder
+        return finder
+    else:
+        log.debug('Handle path? %s. [No]', path)
+
+
+def install_path_hook():
+    sys.path_hooks.append(handle_url)
+    sys.path_importer_cache.clear()
+    log.debug('Installing handle_url')
+
+
+def remove_path_hook():
+    sys.path_hooks.remove(handle_url)
+    sys.path_importer_cache.clear()
+    log.debug('Remving handle_url')
+
+
+install_path_hook()
+import sys
+sys.path.append('http://localhost:15000')
 import fib
-print(fib)
-print(fib.fib(1))
-import spam
+print(fib.__name__)
+print(fib.__file__)
+print(fib.fib(2))
 import grok.blah
-print(grok.blah)
 print(grok.blah.__file__)
