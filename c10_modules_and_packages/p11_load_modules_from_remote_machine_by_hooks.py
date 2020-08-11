@@ -6,6 +6,28 @@ from html.parser import HTMLParser
 import importlib
 
 
+# 使用imp.new_module()来创建一个新的模块对象
+m = imp.new_module('spam')
+print(m)
+print(m.__name__)
+
+# 模块对象通常有一些期望属性，包括__file_（运行模块加载语句的文件名）和__package__（包命）
+m.__file__ = '/project/spam.py'
+m.__package__ = 'project'
+print(m.__file__)
+print(m.__package__)
+
+# 模块会被解释器缓存起来，模块缓存可以在字典sys.modules中被找到，通常可以将缓存和模块的创建通过一个步骤完成
+m = sys.modules.setdefault('spam', imp.new_module('spam'))
+print(m)
+print()
+
+# 如果给定模块已经存在那么会直接获得已经创建的模块
+m = sys.modules.setdefault('math', imp.new_module('math'))
+print(m)
+print(m.sin(2))
+
+
 # 将一些文件作为模块被远程访问
 # cd c10_modules_and_packages\p11
 # python -m http.server 15000
@@ -35,7 +57,7 @@ def load_module(url):
 # spam.hello('Guido')
 
 
-# 自定义导入器
+# 自定义导入的第一种方法是创建一个元路径导入器
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
@@ -250,12 +272,12 @@ def remove_path_hook():
     log.debug('Remving handle_url')
 
 
-install_path_hook()
-import sys
-sys.path.append('http://localhost:15000')
-import fib
-print(fib.__name__)
-print(fib.__file__)
-print(fib.fib(2))
-import grok.blah
-print(grok.blah.__file__)
+# install_path_hook()
+# import sys
+# sys.path.append('http://localhost:15000')
+# import fib
+# print(fib.__name__)
+# print(fib.__file__)
+# print(fib.fib(2))
+# import grok.blah
+# print(grok.blah.__file__)
