@@ -10,12 +10,14 @@ import importlib
 m = imp.new_module('spam')
 print(m)
 print(m.__name__)
+print()
 
-# 模块对象通常有一些期望属性，包括__file_（运行模块加载语句的文件名）和__package__（包命）
+# 模块对象通常有一些期望属性，包括__file_（运行模块加载语句的文件名）和__package__（包名）
 m.__file__ = '/project/spam.py'
 m.__package__ = 'project'
 print(m.__file__)
 print(m.__package__)
+print()
 
 # 模块会被解释器缓存起来，模块缓存可以在字典sys.modules中被找到，通常可以将缓存和模块的创建通过一个步骤完成
 m = sys.modules.setdefault('spam', imp.new_module('spam'))
@@ -26,6 +28,7 @@ print()
 m = sys.modules.setdefault('math', imp.new_module('math'))
 print(m)
 print(m.sin(2))
+print()
 
 
 # 将一些文件作为模块被远程访问
@@ -281,3 +284,11 @@ def remove_path_hook():
 # print(fib.fib(2))
 # import grok.blah
 # print(grok.blah.__file__)
+
+
+# 对比下两种方案（修改sys.meta_path或使用一个路径钩子）。
+# 使用sys.meta_path的导入者可以按照自己的需要自由处理模块。
+# 例如，它们可以从数据库中导入或以不同于一般模块/包处理方式导入。
+# 这种自由同样意味着导入者需要自己进行内部的一些管理。
+# 另外，基于路径的钩子只是适用于对sys.path的处理。
+# 通过这种扩展加载的模块跟普通方式加载的特性是一样的。
