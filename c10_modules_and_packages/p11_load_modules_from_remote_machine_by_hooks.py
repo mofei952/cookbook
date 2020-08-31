@@ -1,3 +1,5 @@
+""" 通过钩子远程加载模块 """
+
 import imp
 from urllib.request import urlopen
 import sys
