@@ -28,4 +28,6 @@ if __name__ == '__main__':
         print('Usage: server.py server_address port', file=sys.stderr)
         raise SystemExit(1)
 
-    server(sys.argv[1], int(sys.argv[2]))
+    server(eval(sys.argv[1]), int(sys.argv[2]))
+
+# python .\server.py "('localhost',13000)" 15000

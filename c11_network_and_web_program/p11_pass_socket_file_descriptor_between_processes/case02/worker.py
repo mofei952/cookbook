@@ -26,4 +26,6 @@ if __name__ == '__main__':
         print('Usage: worker.py server_address', file=sys.stderr)
         raise SystemExit(1)
 
-    worker(sys.argv[1])
+    worker(eval(sys.argv[1]))
+
+# python .\worker.py "('localhost',13000)"

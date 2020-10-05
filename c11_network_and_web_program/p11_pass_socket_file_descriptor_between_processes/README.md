@@ -5,7 +5,7 @@
 
 ## 解决方案
 case01是使用Pipe的案例
-case02是使用multiplepreccess.connection的
+case02是使用multiplepreccess.connection的案例
 
 ## 主要用途
 对于大部分程序员来讲在不同进程之间传递文件描述符好像没什么必要。 但是，有时候它是构建一个可扩展系统的很有用的工具。
