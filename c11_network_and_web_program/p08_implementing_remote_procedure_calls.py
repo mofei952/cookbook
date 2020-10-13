@@ -18,13 +18,13 @@ class RPCHandler:
         try:
             while True:
                 # Receive a message
-                func_name, args, kwargs = pickle.loads(connection.recv())
+                func_name, args, kwargs = connection.recv()
                 # Run the RPC and send a response
                 try:
                     r = self._functions[func_name](*args, **kwargs)
-                    connection.send(pickle.dumps(r))
+                    connection.send(r)
                 except Exception as e:
-                    connection.send(pickle.dumps(e))
+                    connection.send(e)
         except EOFError:
             pass
 
@@ -57,20 +57,21 @@ rpc_server(handler, ('localhost', 17000), authkey=b'peekaboo')
 
 # 在客户端创建RPC代理类来实现远程调用
 """
-import pickle
-
-class RPCProxy:
-    def __init__(self, connection):
-        self._connection = connection
-    def __getattr__(self, name):
-        def do_rpc(*args, **kwargs):
-            self._connection.send(pickle.dumps((name, args, kwargs)))
-            result = pickle.loads(self._connection.recv())
-            if isinstance(result, Exception):
-                raise result
-            return result
-        return do_rpc
-
+>>> import pickle
+>>>
+>>> class RPCProxy:
+...     def __init__(self, connection):
+...         self._connection = connection
+...     def __getattr__(self, name):
+...         def do_rpc(*args, **kwargs):
+...             self._connection.send((name, args, kwargs))
+...             result = self._connection.recv()
+...             if isinstance(result, Exception):
+...                 raise result
+...             return result
+...         return do_rpc
+...
+>>>
 >>> from multiprocessing.connection import Client
 >>> c = Client(('localhost', 17000), authkey=b'peekaboo')
 >>> proxy = RPCProxy(c)
@@ -81,8 +82,7 @@ class RPCProxy:
 >>> proxy.sub([1, 2], 4)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "rpcserver.py", line 37, in do_rpc
-    raise result
+  File "<stdin>", line 9, in do_rpc
 TypeError: unsupported operand type(s) for -: 'list' and 'int'
 >>>
 """

@@ -7,14 +7,18 @@ from threading import Thread
 
 
 # 使用socketserver库创建一个TCP服务器
-class EchoHandler(BaseRequestHandler):
-    def handle(self):
-        print('Got connection from', self.client_address)
-        while True:
-            msg = self.request.recv(8192)
-            if not msg:
-                break
-            self.request.send(msg)
+# class EchoHandler(BaseRequestHandler):
+#     def handle(self):
+#         print('Got connection from', self.client_address)
+#         while True:
+#             msg = self.request.recv(8192)
+#             if not msg:
+#                 break
+#             self.request.send(msg)
+
+
+# serv = TCPServer(('', 20000), EchoHandler)
+# serv.serve_forever()
 
 
 # 在交互式命令行中执行以下代码
@@ -26,7 +30,7 @@ class EchoHandler(BaseRequestHandler):
 5
 >>> s.recv(8192)
 b'hello'
->>>    
+>>>
 """
 
 
@@ -35,11 +39,25 @@ class EchoHandler(StreamRequestHandler):
     def handle(self):
         print('Got connection from', self.client_address)
         for line in self.rfile:
+            print(line)
             self.wfile.write(line)
 
 
 # serv = TCPServer(('', 20000), EchoHandler)
 # serv.serve_forever()
+
+
+# 在交互式命令行中执行以下代码
+"""
+>>> from socket import socket, AF_INET, SOCK_STREAM
+>>> s = socket(AF_INET, SOCK_STREAM)
+>>> s.connect(('localhost', 20000))
+>>> s.send(b'hello\n')
+6
+>>> s.recv(8192)
+b'hello\n'
+>>>
+"""
 
 
 # 如果要处理多个客户端，可以初始化一个ForkingTCPServer或者是ThreadingTCPServer
@@ -60,7 +78,7 @@ class EchoHandler(StreamRequestHandler):
 # serv.serve_forever()
 
 
-# 使用socket库来实现服务器
+# 使用socket库来实现TCP服务器
 def echo_handler(address, client_sock):
     print('Got connection from {}'.format(address))
     while True:
