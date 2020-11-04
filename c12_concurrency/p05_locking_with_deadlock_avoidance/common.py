@@ -18,7 +18,7 @@ def acquire(*locks):
         raise RuntimeError('Lock Order Violation')
 
     acquired.extend(locks)
-    # _local.acquired = acquired
+    _local.acquired = acquired
 
     try:
         for lock in locks:

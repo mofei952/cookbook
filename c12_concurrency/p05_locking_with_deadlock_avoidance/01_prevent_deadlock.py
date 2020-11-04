@@ -1,5 +1,4 @@
 import threading
-from contextlib import contextmanager
 from c12_concurrency.p05_locking_with_deadlock_avoidance.common import acquire
 
 
