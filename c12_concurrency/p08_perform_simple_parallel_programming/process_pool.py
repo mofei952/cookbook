@@ -47,7 +47,7 @@ if __name__ == '__main__':
     with open('logs/20201201.log') as f:
         data = f.read()
     with open('logs/20201204.log', 'w') as f:
-        for i in range(200000):
+        for i in range(2000000):
             f.write(data)
 
     import time
