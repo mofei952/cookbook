@@ -1,14 +1,12 @@
 
-
-# 你有个程序要执行CPU密集型工作，你想让他利用多核CPU的优势来运行的快一点。
-# concurrent.futures 库提供了一个 ProcessPoolExecutor 类，可被用来在一个单独的Python解释器中执行计算密集型函数。
-
 import gzip
 import io
 import glob
 from concurrent import futures
 
 
+# 你有个程序要执行CPU密集型工作，你想让他利用多核CPU的优势来运行的快一点。
+# concurrent.futures 库提供了一个 ProcessPoolExecutor 类，可被用来在一个单独的Python解释器中执行计算密集型函数。
 def find_robots(filename):
     '''
     Find all of the hosts that access robots.txt in a single log file
