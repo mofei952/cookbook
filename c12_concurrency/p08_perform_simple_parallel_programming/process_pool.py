@@ -46,9 +46,10 @@ def find_all_robots2(logdir):
 if __name__ == '__main__':
     with open('logs/20201201.log') as f:
         data = f.read()
-    with open('logs/20201204.log', 'w') as f:
-        for i in range(2000000):
-            f.write(data)
+    for day in range(4, 14):
+        with open(f'logs/202012{day:02}.log', 'w') as f:
+            for i in range(400000):
+                f.write(data)
 
     import time
     t = time.time()
@@ -64,7 +65,8 @@ if __name__ == '__main__':
         print(ipaddr)
 
     import os
-    os.remove('logs/20201204.log')
+    for day in range(4, 14):
+        os.remove(f'logs/202012{day:02}.log')
 
 
 # cd .\c12_concurrency\p08_perform_simple_parallel_programming
