@@ -29,3 +29,8 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
 
     some_thread()
+
+
+# 当一个线程想要执行CPU密集型工作时，会将任务发给进程池。
+# 然后进程池会在另外一个进程中启动一个单独的Python解释器来工作。
+# 当线程等待结果的时候会释放GIL。
