@@ -71,10 +71,10 @@ class PrintActor(Actor):
             print('Got:', msg)
 
 
-# Sample use
-p = PrintActor()
-p.start()
-p.send('Hello')
-p.send('World')
-p.close()
-p.join()
+if __name__ == "__main__":
+    p = PrintActor()
+    p.start()
+    p.send('Hello')
+    p.send('World')
+    p.close()
+    p.join()
