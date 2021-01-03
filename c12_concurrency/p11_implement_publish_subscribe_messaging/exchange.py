@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from collections import defaultdict
 
 
@@ -16,6 +17,16 @@ class Exchange:
     def send(self, msg):
         for subscriber in self._subscribers:
             subscriber.send(msg)
+
+    @contextmanager
+    def subscribe(self, *tasks):
+        for task in tasks:
+            self.attach(task)
+        try:
+            yield
+        finally:
+            for task in tasks:
+                self.detach(task)
 
 
 _exchanges = defaultdict(Exchange)

@@ -10,11 +10,23 @@ task_a = Task()
 task_b = Task()
 
 exc = get_exchange('name')
-exc.attach(task_a)
-exc.attach(task_b)
+with exc.subscribe(task_a, task_b):
+    exc.send('msg1')
+    exc.send('msg2')
+print()
 
-exc.send('msg1')
-exc.send('msg2')
 
-exc.detach(task_a)
-exc.detach(task_b)
+class DisplayMessages:
+    def __init__(self):
+        self.count = 0
+
+    def send(self, msg):
+        self.count += 1
+        print('msg[{}]: {!r}'.format(self.count, msg))
+
+
+d = DisplayMessages()
+exc = get_exchange('name')
+with exc.subscribe(d):
+    exc.send('ttt')
+    exc.send('aaa')
