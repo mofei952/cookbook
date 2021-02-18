@@ -130,7 +130,6 @@ class Socket(object):
 
 if __name__ == '__main__':
     from socket import socket, AF_INET, SOCK_STREAM
-    import time
 
     # Example of a function involving generators.  This should
     # be called using line = yield from readline(sock)
