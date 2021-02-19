@@ -6,6 +6,7 @@ import threading
 
 
 # 利用一对连接的套接字来实现一个监控多个队列的消费者
+# 当数据被加入到一个队列，消费者几乎可以实时的被通知
 class PollableQueue(queue.Queue):
     def __init__(self):
         super().__init__()
@@ -40,6 +41,7 @@ def consumer(queues):
     '''
     while True:
         can_read, _, _ = select.select(queues, [], [])
+        print(can_read)
         for r in can_read:
             item = r.get()
             print('Got:', item)
