@@ -1,13 +1,11 @@
+#!/usr/bin/env python3
 import fileinput
 
-# for line in fileinput.input():
-#     print(line)
+with fileinput.input() as f_input:
+    for line in f_input:
+        print(line, end='')
 
 
-f = fileinput.input()
-for line in f:
-    print(f.filename(), f.lineno(), line)
-
-
-# dir | .\filein.py
-# .\filein.py C:\Windows\system.ini
+# ls | ./filein.py
+# ./filein.py /etc/passwd
+# ./filein.py < /etc/passwd
