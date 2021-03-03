@@ -1,7 +1,7 @@
 # 允许时弹出密码输入提示
 
 使用Python的 getpass 模块，可以很轻松的弹出密码输入提示，并且不会在用户终端回显密码。代码如下：
-```sh
+```python
 import getpass
 
 user = getpass.getuser()
