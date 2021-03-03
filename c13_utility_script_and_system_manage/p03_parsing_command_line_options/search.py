@@ -25,8 +25,8 @@ print(args.outfile)
 print(args.speed)
 
 
-# python .\search.py -h
-# python .\search.py foo.txt bar.txt
-# python .\search.py -v -p spam --pat=eggs foo.txt bar.txt
-# python .\search.py -v -p spam --pat=eggs foo.txt bar.txt -o results
-# python .\search.py -v -p spam --pat=eggs foo.txt bar.txt -o results --speed=fast
+# python search.py -h
+# python search.py foo.txt bar.txt
+# python search.py -v -p spam --pat=eggs foo.txt bar.txt
+# python search.py -v -p spam --pat=eggs foo.txt bar.txt -o results
+# python search.py -v -p spam --pat=eggs foo.txt bar.txt -o results --speed=fast
