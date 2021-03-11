@@ -33,3 +33,30 @@ except subprocess.TimeoutExpired as e:
     out_bytes = e.output
     code = e.returncode
 ```
+
+如果想让命令被一个shell执行，传递一个字符串参数，并设置参数 shell=True 。 有时候想要Python去执行一个复杂的shell命令的时候这个就很有用了，比如管道流、I/O重定向和其他特性。
+```
+out_bytes = subprocess.check_output('pwd | grep w', shell=True)
+```
+
+如果需要对子进程做更复杂的交互，比如给它发送输入，这时候可直接使用 subprocess.Popen 类。
+```py
+# Some text to send
+text = b'''
+hello world
+this is a test
+goodbye
+'''
+
+# Launch a command with pipes
+p = subprocess.Popen(['wc'],
+          stdout = subprocess.PIPE,
+          stdin = subprocess.PIPE)
+
+# Send the data and get the output
+stdout, stderr = p.communicate(text)
+
+# To interpret as text, decode
+out = stdout.decode('utf-8')
+err = stderr.decode('utf-8')
+```
