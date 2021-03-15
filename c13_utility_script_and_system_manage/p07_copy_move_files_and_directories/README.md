@@ -41,6 +41,8 @@ shutil.copytree(src, dst, ignore=ignore_pyc_files)
 shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*~', '*.pyc'))
 ```
 
+对于文件元数据信息，copy2() 这样的函数只能尽自己最大能力来保留它。 访问时间、创建时间和权限这些基本信息会被保留， 但是对于所有者、ACLs、资源fork和其他更深层次的文件元信息就说不准了， 这个还得依赖于底层操作系统类型和用户所拥有的访问权限。 所以通常不会去使用 shutil.copytree() 函数来执行系统备份。
+
 当处理文件名的时候，最好使用 os.path 中的函数来确保最大的可移植性（特别是同时要适用于Unix和Windows）。 例如：
 
 ```py
