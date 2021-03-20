@@ -1,6 +1,6 @@
 # 创建和解压归档文件
 
-创建或解压常见格式的归档文件（比如.tar, .tgz或.zip）可以使用 shutil 模块拥有两个函数—— make_archive() 和 unpack_archive()。例如：
+创建或解压常见格式的归档文件（比如.tar, .tgz或.zip）可以使用 shutil 模块的 make_archive() 函数和 unpack_archive() 函数。例如：
 
 ```py
 >>> import shutil
@@ -18,3 +18,4 @@ make_archive() 的第二个参数是期望的输出格式。 可以使用 get_ar
 [('bztar', "bzip2'ed tar-file"), ('gztar', "gzip'ed tar-file"), ('tar', 'uncompressed tar file'), ('xztar', "xz'ed tar-file"), ('zip', 'ZIP file')]
 >>>
 ```
+
