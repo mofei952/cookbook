@@ -7,9 +7,9 @@ import time
 
 def modified_within(top, seconds):
     now = time.time()
-    for path, dirs, files in os.walk(top):
+    for root, dirs, files in os.walk(top):
         for name in files:
-            fullpath = os.path.join(path, name)
+            fullpath = os.path.join(root, name)
             if os.path.exists(fullpath):
                 mtime = os.path.getmtime(fullpath)
                 if mtime > (now - seconds):

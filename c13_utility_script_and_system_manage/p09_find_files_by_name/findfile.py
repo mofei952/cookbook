@@ -5,10 +5,10 @@ import sys
 
 
 def findfile(start, name):
-    for relpath, dirs, files in os.walk(start):
-        print(relpath, dirs, files)
+    for root, dirs, files in os.walk(start):
+        print(root, dirs, files)
         if name in files:
-            full_path = os.path.join(start, relpath, name)
+            full_path = os.path.join(start, root, name)
             print(os.path.normpath(os.path.abspath(full_path)))
 
 
