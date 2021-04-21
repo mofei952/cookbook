@@ -57,7 +57,7 @@ with Timer() as t2:
 print(t2.elapsed)
 
 
-# 只计算花费的CPU时间，应该使用 time.process_time() 来带体
+# 使用 time.process_time() 计算CPU时间
 t = Timer(time.process_time)
 with t:
     countdown(1000000)
