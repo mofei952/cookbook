@@ -40,5 +40,5 @@ with timeblock('counting'):
         n -= 1
 
 
-timeit('math.sqrt(2)', 'import math')
-timeit('sqrt(2)', 'from math import sqrt', number=10000000)
+print(timeit('math.sqrt(2)', 'import math'))
+print(timeit('sqrt(2)', 'from math import sqrt', number=10000000))
